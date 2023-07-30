@@ -166,6 +166,7 @@ function updateAddNewFields() {
       addTextInput(addNewFieldsDiv, 'Release Date', 'release-date');
       addTextInput(addNewFieldsDiv, 'Director', 'director');
       addTextInput(addNewFieldsDiv, 'Production Cost', 'production-cost');
+      addTextInput(addNewFieldsDiv, 'Gross Revenue', 'gross-revenue');
     } else if (addNewCategorySelect.value === 'actor-to-movie') {
       addTextInput(addNewFieldsDiv, 'Movie Title', 'movie-title');
       addTextInput(addNewFieldsDiv, 'Actor Name', 'actor-name');

@@ -217,7 +217,6 @@ function updateAddNewFields() {
     const removeCategorySelect = document.getElementById("remove-category");
     const removeFieldsDiv = document.getElementById("remove-fields");
   
-    // Function to add text input dynamically based on category selection
     function addTextInput(label, id) {
       const div = document.createElement("div");
       div.classList.add("form-row");
@@ -235,10 +234,9 @@ function updateAddNewFields() {
       removeFieldsDiv.appendChild(div);
     }
   
-    // Update fields based on the selected category
     removeCategorySelect.addEventListener("change", function () {
       const selectedCategory = removeCategorySelect.value;
-      removeFieldsDiv.innerHTML = ""; // Clear previous fields
+      removeFieldsDiv.innerHTML = ""; 
   
       if (selectedCategory === "genre-to-movie") {
         addTextInput("Movie Name", "movie-name");
@@ -251,13 +249,10 @@ function updateAddNewFields() {
       }
     });
   
-    // Handle the remove button click
     function submitRemove() {
       const removeCategory = removeCategorySelect.value;
       const removeName = document.getElementById("name").value;
   
-      // Implement your remove logic here
-      // For now, let's just display the selected options in the output box
   
       const outputBox = document.getElementById("remove-output");
       outputBox.textContent = `Category: ${removeCategory}, Name: ${removeName}`;

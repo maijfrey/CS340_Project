@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Database Website</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+        <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+<body>
+  <div class="tabs">
+    <div class="tab" onclick="showTab('sort-all')">Sort All</div>
+    <div class="tab" onclick="showTab('search')">Search</div>
+    <div class="tab" onclick="showTab('add-new')">Add New</div>
+    <div class="tab" onclick="showTab('update')">Update</div>
+    <div class="tab" onclick="showTab('remove')">Remove</div>
+  </div>
+        <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <div class="tab-content" id="sort-all">
+    <div class="form-row">
+      <div class="form-label">Choose a category:</div>
+      <select id="sort-category" onchange="updateSortOptions()">
+        <option value="" selected disabled>Select a category</option>
+        <option value="movies">Movies</option>
+        <option value="actors">Actors</option>
+        <option value="directors">Directors</option>
+        <option value="genres">Genres</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Choose sorting option:</div>
+      <select id="sort-by">
+        <!-- Options will be updated based on the first dropdown selection -->
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Sorting Order:</div>
+      <div>
+        <input type="radio" id="ascending" name="sort-order" value="asc">
+        <label for="ascending">Ascending</label>
+      </div>
+      <div>
+        <input type="radio" id="descending" name="sort-order" value="desc">
+        <label for="descending">Descending</label>
+      </div>
+    </div>
+
+    <button onclick="submitSort()">Sort</button>
+    <div id="output-box">
+      <div id="sort-output"></div>
+    </div>
+  </div>
+        <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <div class="tab-content" id="search">
+    <div class="form-row">
+      <div class="form-label">Choose a category:</div>
+      <select id="search-category" onchange="updateSearchOptions()">
+        <option value="" selected disabled>Select a category</option>
+        <option value="movies">Movies</option>
+        <option value="actors">Actors</option>
+        <option value="directors">Directors</option>
+        <option value="genres">Genres</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Search By:</div>
+      <select id="search-by">
+        <!-- Options will be updated based on the first dropdown selection -->
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Order by:</div>
+      <select id="search-order-by">
+        <!-- Options will be updated based on the first dropdown selection -->
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Style:</div>
+      <div>
+        <input type="radio" id="search-ascending" name="search-order" value="asc">
+        <label for="search-ascending">Ascending</label>
+      </div>
+      <div>
+        <input type="radio" id="search-descending" name="search-order" value="desc">
+        <label for="search-descending">Descending</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Search Query:</div>
+      <input type="text" id="search-query" placeholder="Search Query">
+    </div>
+
+    <button onclick="submitSearch()">Search</button>
+    <div id="output-box">
+      <div id="search-output"></div>
+    </div>
+  </div>
+        <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+  <div class="tab-content" id="add-new">
+    <div class="form-row">
+      <div class="form-label">Choose a category:</div>
+      <select id="add-new-category" onchange="updateAddNewFields()">
+        <option value="" selected disabled>Select a category</option>
+        <option value="movies">Movie</option>
+        <option value="actors">Actor</option>
+        <option value="directors">Director</option>
+        <option value="actor-to-movie">Actor-to-Movie</option>
+        <option value="genre-to-movie">Genre-to-Movie</option>
+        <option value="genres">Genre</option>
+      </select>
+    </div>
+
+    <div id="add-new-fields">
+      <!-- Fields will be added dynamically based on the selected category -->
+    </div>
+
+    <button onclick="submitAddNew()">Add New</button>
+
+    <div id="output-box">
+      <div id="add-new-output"></div>
+    </div>
+  </div>
+          <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+  <div class="tab-content" id="update">
+    <div class="form-row">
+      <div class="form-label">Choose a category:</div>
+      <select id="update-category" onchange="updateUpdateOptions()">
+        <option value="" selected disabled>Select a category</option>
+        <option value="movies">Movie</option>
+        <option value="actors">Actor</option>
+        <option value="directors">Director</option>
+        <option value="genres">Genre</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Name/Title:</div>
+      <input type="text" id="name-title" placeholder="Enter Name/Title">
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Information to Update:</div>
+      <select id="info-to-update">
+        <!-- Options will be updated based on the first dropdown selection -->
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Replace with:</div>
+      <input type="text" id="replace-with" placeholder="Enter Replacement">
+    </div>
+
+    <button onclick="submitUpdate()">Submit</button>
+
+    <div id="output-box">
+      <div id="update-output"></div>
+    </div>
+  </div>
+  <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <div class="tab-content" id="remove">
+    <div class="form-row">
+      <div class="form-label">Choose a category:</div>
+      <select id="remove-category">
+        <option value="" selected disabled>Select a category</option>
+        <option value="movies">Movie</option>
+        <option value="actors">Actor</option>
+        <option value="directors">Director</option>
+        <option value="genres">Genre</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-label">Name:</div>
+      <input type="text" id="remove-name" placeholder="Enter Name">
+    </div>
+
+    <button onclick="submitRemove()">Remove</button>
+
+    <div id="output-box">
+      <div id="remove-output"></div>
+    </div>
+  </div>
+
+      <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <script src="script.js"></script>
+  
+</body>
+</html>

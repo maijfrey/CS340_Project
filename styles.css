@@ -1,0 +1,51 @@
+body {
+    background-color: lightgrey;
+  }
+  .tabs {
+    display: flex;
+  }
+  .tab {
+    flex: 1;
+    padding: 10px;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  .tab.active {
+    background-color: lightblue;
+  }
+  .tab-content {
+    display: none;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .form-label {
+    margin-right: 10px;
+  }
+  #query-output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+  #output-box {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+  .tabs .tab.active {
+    background-color: rgb(124, 208, 124);
+    color: white;
+  }

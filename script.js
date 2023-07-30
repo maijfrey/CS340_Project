@@ -124,6 +124,7 @@ function updateUpdateOptions() {
       addOption(infoToUpdateSelect, 'Release Date', 'release-date');
       addOption(infoToUpdateSelect, 'Gross Revenue', 'gross-revenue');
       addOption(infoToUpdateSelect, 'Production Cost', 'production-cost');
+      addOption(infoToUpdateSelect, 'Director Name', 'director-name');
     } else if (updateCategorySelect.value === 'actors' || updateCategorySelect.value === 'directors') {
       addOption(infoToUpdateSelect, 'Name', 'name');
       addOption(infoToUpdateSelect, 'Birthdate', 'birthdate');
@@ -155,29 +156,29 @@ function updateAddNewFields() {
     addNewFieldsDiv.innerHTML = ''; // Clear previous fields
   
     if (addNewCategorySelect.value === 'actors' || addNewCategorySelect.value === 'directors') {
-      addTextInput(addNewFieldsDiv, 'Name', 'name');
-      addTextInput(addNewFieldsDiv, 'Movie Count', 'movie-count');
-      addTextInput(addNewFieldsDiv, 'Birthdate', 'birthdate');
-      addTextInput(addNewFieldsDiv, 'Gender', 'gender');
+      addTextInput('Name', 'name');
+      addTextInput('Movie Count', 'movie-count');
+      addTextInput('Birthdate', 'birthdate');
+      addTextInput('Gender', 'gender');
     } else if (addNewCategorySelect.value === 'genres') {
-      addTextInput(addNewFieldsDiv, 'Genre Name', 'genre-name');
+      addTextInput('Genre Name', 'genre-name');
     } else if (addNewCategorySelect.value === 'movies') {
-      addTextInput(addNewFieldsDiv, 'Title', 'title');
-      addTextInput(addNewFieldsDiv, 'Release Date', 'release-date');
-      addTextInput(addNewFieldsDiv, 'Director', 'director');
-      addTextInput(addNewFieldsDiv, 'Production Cost', 'production-cost');
-      addTextInput(addNewFieldsDiv, 'Gross Revenue', 'gross-revenue');
+      addTextInput('Title', 'title');
+      addTextInput('Release Date', 'release-date');
+      addTextInput('Director', 'director');
+      addTextInput('Production Cost', 'production-cost');
+      addTextInput('Gross Revenue', 'gross-revenue');
     } else if (addNewCategorySelect.value === 'actor-to-movie') {
-      addTextInput(addNewFieldsDiv, 'Movie Title', 'movie-title');
-      addTextInput(addNewFieldsDiv, 'Actor Name', 'actor-name');
-      addTextInput(addNewFieldsDiv, 'Character Name', 'character-name');
+      addTextInput('Movie Title', 'movie-title');
+      addTextInput('Actor Name', 'actor-name');
+      addTextInput('Character Name', 'character-name');
     } else if (addNewCategorySelect.value === 'genre-to-movie') {
-      addTextInput(addNewFieldsDiv, 'Movie Title', 'movie-title');
-      addTextInput(addNewFieldsDiv, 'Genre Name', 'genre-name');
+      addTextInput('Movie Title', 'movie-title');
+      addTextInput('Genre Name', 'genre-name');
     }
-  }
   
-  function addTextInput(container, label, id) {
+  
+  function addTextInput(label, id) {
     const div = document.createElement('div');
     div.classList.add('form-row');
   
@@ -191,8 +192,8 @@ function updateAddNewFields() {
   
     div.appendChild(formLabel);
     div.appendChild(input);
-    container.appendChild(div);
-  }
+    addNewFieldsDiv.appendChild(div);
+  }}
   
   function submitAddNew() {
     const addNewCategory = document.getElementById('add-new-category').value;
@@ -212,16 +213,58 @@ function updateAddNewFields() {
     }
   }
   //------------------------------------------------------------------------------------------------------------------------------------------
-
-  function submitRemove() {
-    const removeCategory = document.getElementById('remove-category').value;
-    const removeName = document.getElementById('remove-name').value;
-
-    // For now, display the selected options in the output box
-
-    const outputBox = document.getElementById('remove-output');
-    outputBox.textContent = `Category: ${removeCategory}, Name: ${removeName}`;
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const removeCategorySelect = document.getElementById("remove-category");
+    const removeFieldsDiv = document.getElementById("remove-fields");
+  
+    // Function to add text input dynamically based on category selection
+    function addTextInput(label, id) {
+      const div = document.createElement("div");
+      div.classList.add("form-row");
+  
+      const formLabel = document.createElement("div");
+      formLabel.classList.add("form-label");
+      formLabel.textContent = label + ":";
+  
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = id;
+  
+      div.appendChild(formLabel);
+      div.appendChild(input);
+      removeFieldsDiv.appendChild(div);
+    }
+  
+    // Update fields based on the selected category
+    removeCategorySelect.addEventListener("change", function () {
+      const selectedCategory = removeCategorySelect.value;
+      removeFieldsDiv.innerHTML = ""; // Clear previous fields
+  
+      if (selectedCategory === "genre-to-movie") {
+        addTextInput("Movie Name", "movie-name");
+        addTextInput("Genre Name", "genre-name");
+      } else if (selectedCategory === "actor-to-movie") {
+        addTextInput("Movie Name", "movie-name");
+        addTextInput("Actor Name", "actor-name");
+      } else {
+        addTextInput("Name", "name");
+      }
+    });
+  
+    // Handle the remove button click
+    function submitRemove() {
+      const removeCategory = removeCategorySelect.value;
+      const removeName = document.getElementById("name").value;
+  
+      // Implement your remove logic here
+      // For now, let's just display the selected options in the output box
+  
+      const outputBox = document.getElementById("remove-output");
+      outputBox.textContent = `Category: ${removeCategory}, Name: ${removeName}`;
+    }
+  
+    document.getElementById("remove-btn").addEventListener("click", submitRemove);
+  });
 
   //------------------------------------------------------------------------------------------------------------------------------------------
 

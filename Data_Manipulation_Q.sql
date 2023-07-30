@@ -264,6 +264,18 @@ UPDATE Movies
 SET productionCost = :replaceInput
 WHERE `name` = :nameInput
 
+-- Update Directorid
+UPDATE Movies
+SET productionCost = :replaceInput
+WHERE `name` = :nameInput
+
+UPDATE Movies
+SET directorID = (
+    SELECT directorID
+    FROM Directors
+    WHERE Directors.name LIKE :inputName
+)
+WHERE `name` = :nameInput
 
 --                          Genres UPDATES
 
@@ -294,7 +306,31 @@ WHERE `name` = :nameInput
 DELETE FROM Directors
 WHERE `name` = :nameInput
 
+--                          Actor-to-Movie DELETES
+DELETE FROM Movies_Actors
+WHERE movieID = (
+    SELECT movieID
+    FROM Movies
+    WHERE name LIKE :movieName
+)
+AND actorID IN (
+    SELECT actorID
+    FROM Actors
+    WHERE name LIKE :otherName
+);
 
+--                          Genre-to-Movie DELETES
 
+DELETE FROM Movies_Genres
+WHERE movieID = (
+    SELECT movieID
+    FROM Movies
+    WHERE name = :movieName
+)
+AND genreID IN (
+    SELECT genreID
+    FROM Genres
+    WHERE name = :otherName
+);
 
 

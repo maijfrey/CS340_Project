@@ -61,8 +61,8 @@ CREATE TABLE Movies_Actors (
     movieID int NOT NULL,
     actorID int NOT NULL,
 	characterName varchar(255) NOT NULL,
-    FOREIGN KEY (movieID) REFERENCES Movies(movieID) ON DELETE CASCADE,   
-    FOREIGN KEY (actorID) REFERENCES Actors(actorID) ON DELETE CASCADE   
+    FOREIGN KEY (movieID) REFERENCES Movies(movieID) ON DELETE CASCADE ON UPDATE CASCADE,   
+    FOREIGN KEY (actorID) REFERENCES Actors(actorID) ON DELETE CASCADE ON UPDATE CASCADE  
 );
 
 DROP TABLE IF EXISTS Movies_Genres;

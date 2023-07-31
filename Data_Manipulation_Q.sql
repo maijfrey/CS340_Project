@@ -266,10 +266,6 @@ WHERE `name` = :nameInput
 
 -- Update Directorid
 UPDATE Movies
-SET productionCost = :replaceInput
-WHERE `name` = :nameInput
-
-UPDATE Movies
 SET directorID = (
     SELECT directorID
     FROM Directors

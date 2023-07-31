@@ -37,7 +37,9 @@ function updateSortOptions() {
     addOption(sortBySelect, 'Birthdate', 'birthdate');
     } else if (sortCategorySelect.value === 'genres') {
     addOption(sortBySelect, 'Name', 'name');
-    }
+    } else if (sortCategorySelect.value === 'genre-to-movie' || sortCategorySelect.value === 'actor-to-movie') {
+      addOption(sortBySelect, 'Title', 'title');
+  }
 }
 
 function submitSort() {

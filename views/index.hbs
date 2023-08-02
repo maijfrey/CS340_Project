@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Database Website</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+
+<nav class="tabs">
+  <a class="tab" href="/">View All</a> |
+  <a class="tab" href="search.hbs">Search</a> |
+  <a class="tab" href="add-new.hbs">Add New</a> |
+  <a class="tab" href="update.hbs">Update</a> | 
+  <a class="tab" href="remove.hbs">Remove</a>
+</nav>
+
+<body>
+  <table id="movie-table">
+      <thead>
+          <tr>
+              {{#each data.[0]}}
+              <th>
+                  {{@key}}
+              </th>
+              {{/each}}
+          </tr>
+      </thead>
+      <tbody>
+
+          {{#each data}}
+          <tr>
+              <td>{{this.movieID}}</td>
+              <td>{{this.title}}</td>
+              <td>{{this.productionCost}}</td>
+              <td>{{this.grossRevenue}}</td>
+              <td>{{this.releaseDate}}</td>
+              <td>{{this.directorID}}</td>
+          </tr>
+          {{/each}}
+      </tbody>
+  </table>
+  
+</body>
+</html>

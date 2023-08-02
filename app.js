@@ -30,7 +30,7 @@ app.get('/', function(req, res)
         let query2 = "SELECT * FROM Actors";
         let query3 = "SELECT * FROM Directors";
         let query4 = "SELECT * FROM Genres";
-        let query5 = "SELECT * FROM Genres";               
+        let query5 = "SELECT * FROM Genres";
         db.pool.query(query1, function(error, rows, fields){ 
             res.render('index', {data: rows}); 
         })     

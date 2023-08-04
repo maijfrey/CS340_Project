@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Database Website</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<header class="container">
+    <h2>Movie Information Database</h2>
+    <nav class="tabs">
+        <a class="tab" href="/">Movies</a> 
+        <a class="tab" href="actors.hbs">Actors</a> 
+        <a class="tab" href="directors.hbs">Directors</a> 
+        <a class="tab" href="genres.hbs">Genres</a> 
+        <a class="tab" href="movies_actors.hbs">Movie Actors</a>
+        <a class="tab" href="movies_genres.hbs">Movie Genres</a>
+    </nav>
+</header>
+
+<body>
+  <table id="genres-table">
+      <thead>
+          <tr>
+              <th>Genre Name</th>
+          </tr>
+      </thead>
+      <tbody>
+
+          {{#each data}}
+          <tr>
+              <td>{{this.name}}</td>
+          </tr>
+          {{/each}}
+      </tbody>
+  </table>
+  
+</body>
+</html>

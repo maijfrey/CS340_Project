@@ -1,0 +1,33 @@
+body {
+    background-color: lightgrey;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.tabs {
+    float: right;
+    margin-bottom: 30px;
+}
+.tab {
+    flex: 1;
+    padding: 10px;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+a:hover {
+    background-color: seagreen;
+}
+
+table, th, td {
+    border: 1px solid;
+    padding: 10px;
+    text-align: center;
+    margin-top: 30px;
+}

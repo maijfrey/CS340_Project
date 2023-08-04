@@ -6,7 +6,6 @@ let updateSelect = document.getElementById('input-update-text');
 // # of column to update
 let column;
 
-
 updateCategory.addEventListener("click", function() {
     // Update select type based on attribnute to change
     updateCategory.addEventListener("change", function() {
@@ -41,6 +40,7 @@ updateCategory.addEventListener("click", function() {
         }
     })
 });
+
 
 
 updateMovieForm.addEventListener("submit", function (e) {
@@ -100,8 +100,7 @@ updateRow = (data, movieID, column) => {
 
     for (let i = 0, row; row = movieTable.rows[i]; i++) {
         //Iterate through rows until we find the correct movie to update
-        if (table.rows[i].getAttribute("data-value") == movieID) {
-            console.log("hello");
+        if (movieTable.rows[i].getAttribute("data-value") == movieID) {
              // Get row of movieID match
              let updateRowIndex = table.getElementsByTagName("tr")[i];
  

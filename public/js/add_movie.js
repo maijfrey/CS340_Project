@@ -56,6 +56,8 @@ addMovieForm.addEventListener("submit", function (e) {
         }
     }
     // Send the request and wait for the response
+    console.log(JSON.stringify(data));
+
     xhttp.send(JSON.stringify(data));
 
 })
@@ -92,7 +94,7 @@ addRowToTable = (data) => {
 
     // Create new delete button 
     deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "DELETE";
+    deleteCell.innerHTML = "delete";
     deleteCell.onclick = function(){
         deleteMovie(newRow.movieID);
     };
@@ -111,7 +113,7 @@ addRowToTable = (data) => {
     currentTable.appendChild(row);
 
 
-    let selectUpdate = document.getElementById("input-update-movie");
+    let selectUpdate = document.getElementById("input-title-update");
     let option = document.createElement("option");
     option.text = newRow.title;
     option.value = newRow.movieID;

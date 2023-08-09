@@ -82,36 +82,27 @@
     <a href='/'><button>Reset</button></a>
 </form>
 
-
 <h2>Update a Movie</h2>
-<form id="update-movie-form-ajax">
-    <label for="input-update-movie">Movie Title: </label>
-    <select name="input-update-movie" id="input-update-movie">
-        <option value="test">Select a Title</option>
+<form id="update-movie-form">
+    <label for="update-movie-title">Title: </label>
+    <select name="update-movie-title" id="update-movie-title">
+        <option value="">Select a Title</option>
         {{#each data}}
-        <option value="{{this.movieID}}">{{this.title}}</option>
+            <option value="{{this.movieID}}">{{this.title}}</option>
         {{/each}}
     </select>
-    <div></div>
-
-    <label for="input-update-category">Attribute to Update:</label>
-    <select name="input-update-category" id="input-update-category";>
-        <option >Select an Attribute to Update </option>
-        <option id="title-category" value="title">Title</option>
-        <option id="productionCost-category" value="productionCost">Production Cost</option>
-        <option id="grossRevenue-cateogry"value="grossRevenue">Gross Revenue</option>
-        <option id="releaseDate-category" value="releaseDate">Release Date</option>
-        <option id="director-category" value=>Director</option>
+    <label for="update-movie-director">New Director:</label>
+    <select name="update-movie-director" id="update-movie-director">
+        <option value="">Select a Director</option>
+        {{#each directors}}
+            <option value="{{this.directorID}}">{{this.name}}</option>
+        {{/each}}
     </select>
-    <div>
-        <label for="input-update-text">New Value:</label>
-        <!-- Input type changes based off of selected attribute/category to update-->
-        <input name="input-update-text" id="input-update-text">
-    </div>
+
     <input type="submit">
     <a href='/'><button>Reset</button></a>
 </form>
- 
+
 
 <script src="./js/add_movie.js"></script>
 <script src="./js/delete_movie.js"></script>

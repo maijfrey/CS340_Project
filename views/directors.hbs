@@ -39,6 +39,33 @@
           {{/each}}
       </tbody>
   </table>
+
+<h2>Add a New Director</h2>
+<p>Please add a new Director's information below and submit!</p>
+<form id="add-director-form-ajax">
+    <label for="input-director-name">Name: </label>
+    <input type="text" name="input-director-name" id="input-director-name">
+    
+    <label for="input-director-birthdate">Birthdate: </label>
+    <input type="date" name="input-director-birthdate" id="input-director-birthdate">
+
+    <label for="input-director-gender">Gender: </label>
+    <input type="text" name="input-director-gender" id="input-director-gender">
+    <select> 
+        <option value="{{this.directorID}}">{{this.name}}</option>
+
+    <label for="input-director-movieCount">Movie Count: </label>
+    <input type="number" name="input-director-movieCount" id="input-director-movieCount">
+
+        <option value="">Please Select a Director</option>
+        {{#each directors}}
+            <option value="{{this.directorID}}">{{this.name}}</option>
+        {{/each}}
+        <option value="">Other</option>
+    </select>
+
+    <input type="submit">
+</form>
   
 </body>
 </html>

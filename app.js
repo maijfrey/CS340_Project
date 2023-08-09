@@ -28,76 +28,70 @@ app.use(express.static('public'));
 /*
     GET/READS
 */
-app.get('/', function(req, res)
-    {   
-        let query1;
-        if (req.query.search !== undefined) {
-            query1 = `SELECT * FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
-        } else {
-            query1 = "SELECT * FROM Movies;";
-        }
-        let query2 = "SELECT * FROM Directors;";
-        db.pool.query(query1, function(error, rows, fields){
-            let movie = rows;
-            db.pool.query(query2, function(error, rows, fields){
-                let directors = rows;
+app.get('/', function(req, res){   
+    let query1;
+    if (req.query.search !== undefined) {
+        query1 = `SELECT * FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
+    } else {
+        query1 = "SELECT * FROM Movies;";
+    }
+    let query2 = "SELECT * FROM Directors;";
+    db.pool.query(query1, function(error, rows, fields){
+        let movie = rows;
+        db.pool.query(query2, function(error, rows, fields){
+            let directors = rows;
 
-                let directormap = {}
-                directors.map(director => {
-                    let id = parseInt(director.directorID, 10);
+            let directormap = {}
+            directors.map(director => {
+                let id = parseInt(director.directorID, 10);
     
-                    directormap[id] = director["name"];
-                })
-
-                movie = movie.map(movie => {
-                    return Object.assign(movie, {directorID: directormap[movie.directorID]})
-                })
-    
-                res.render('index', {data: movie, directors: directors}); 
+                directormap[id] = director["name"];
             })
+
+            movie = movie.map(movie => {
+                return Object.assign(movie, {directorID: directormap[movie.directorID]})
+            })
+    
+            res.render('index', {data: movie, directors: directors}); 
         })
-    });
+    })
+});
 
 
-app.get('/actors.hbs', function(req, res)
-    {
+app.get('/actors.hbs', function(req, res){
         let query1 = "SELECT * FROM Actors ORDER BY name ASC;";
         db.pool.query(query1, function(error, rows, fields){
             res.render('actors', {data: rows}); 
         })
-    });
+});
 
-app.get('/genres.hbs', function(req, res)
-    {
+app.get('/genres.hbs', function(req, res){
         let query1 = "SELECT * FROM Genres ORDER BY name ASC;";
         db.pool.query(query1, function(error, rows, fields){
             res.render('genres', {data: rows}); 
         })
-    });
+});
 
-app.get('/directors.hbs', function(req, res)
-    {
+app.get('/directors.hbs', function(req, res){
         let query1 = "SELECT * FROM Directors ORDER BY name ASC;";
         db.pool.query(query1, function(error, rows, fields){
             res.render('directors', {data: rows}); 
         })
-    });
+});
 
-app.get('/movies_actors.hbs', function(req, res)
-    {
+app.get('/movies_actors.hbs', function(req, res){
         let query1 = "SELECT * FROM Movies_Actors;";
         db.pool.query(query1, function(error, rows, fields){
             res.render('movies_actors', {data: rows}); 
         })
-    });
+});
 
-app.get('/movies_genres.hbs', function(req, res)
-    {
+app.get('/movies_genres.hbs', function(req, res){
         let query1 = "SELECT * FROM Movies_Genres;";
         db.pool.query(query1, function(error, rows, fields){
             res.render('movies_genres', {data: rows}); 
         })
-    });
+});
 
 /*
     POST/CREATES

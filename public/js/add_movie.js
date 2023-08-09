@@ -3,7 +3,6 @@ let addMovieForm = document.getElementById('add-movie-form-ajax');
 
 // Add event listener for submission
 addMovieForm.addEventListener("submit", function (e) {
-    
     // Prevent the form from submitting
     e.preventDefault();
 
@@ -22,7 +21,7 @@ addMovieForm.addEventListener("submit", function (e) {
     let releaseDateValue = inputReleaseDate.value;
     let directorValue = inputDirector.value;
 
-
+    
     // Put our data we want to send in a javascript object
     let data = {
         title: titleValue,
@@ -43,7 +42,6 @@ addMovieForm.addEventListener("submit", function (e) {
 
             // Add new data
             addRowToTable(xhttp.response);
-
             // Clear the inputs 
             inputTitle.value = '';
             inputProductionCost.value = '';
@@ -56,8 +54,6 @@ addMovieForm.addEventListener("submit", function (e) {
         }
     }
     // Send the request and wait for the response
-    console.log(JSON.stringify(data));
-
     xhttp.send(JSON.stringify(data));
 
 })
@@ -65,12 +61,9 @@ addMovieForm.addEventListener("submit", function (e) {
 
 // Create new row for the Movies Table
 addRowToTable = (data) => {
-
     // Movie Table reference
     let currentTable = document.getElementById("movies-table");
 
-    // Index of new row
-    let newRowIndex = currentTable.rows.length;
 
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
@@ -94,7 +87,7 @@ addRowToTable = (data) => {
 
     // Create new delete button 
     deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "delete";
+    deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
         deleteMovie(newRow.movieID);
     };
@@ -113,9 +106,11 @@ addRowToTable = (data) => {
     currentTable.appendChild(row);
 
 
-    let selectUpdate = document.getElementById("input-title-update");
+    let selectUpdate = document.getElementById("input-update-movie");
     let option = document.createElement("option");
     option.text = newRow.title;
     option.value = newRow.movieID;
     selectUpdate.add(option);
+
+    
 }

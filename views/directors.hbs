@@ -18,27 +18,29 @@
 </header>
 
 <body>
-  <table id="directors-table">
-      <thead>
-          <tr>
-              <th>Director Name</th>
-              <th>Birthdate</th>
-              <th>Gender</th>
-              <th>Number of Movies</th>
-          </tr>
-      </thead>
-      <tbody>
+    <table id="directors-table">
+        <thead>
+            <tr>
+                <th id="delete-button">DELETE</th>
+                <th>Director Name</th>
+                <th>Birthdate</th>
+                <th>Gender</th>
+                <th>Number of Movies</th>
+            </tr>
+        </thead>
+        <tbody>
 
-          {{#each data}}
-          <tr>
-              <td>{{this.name}}</td>
-              <td>{{this.birthdate}}</td>
-              <td>{{this.gender}}</td>
-              <td>{{this.movieCount}}</td>
-          </tr>
-          {{/each}}
-      </tbody>
-  </table>
+            {{#each data}}
+            <tr data-value={{this.directorID}}>
+                <td><button onclick="deleteDirector({{this.directorID}})">Delete</button></td>
+                <td>{{this.name}}</td>
+                <td>{{this.birthdate}}</td>
+                <td>{{this.gender}}</td>
+                <td>{{this.movieCount}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 
 <h2>Add a New Director</h2>
 <p>Please add a new Director's information below and submit!</p>
@@ -50,22 +52,46 @@
     <input type="date" name="input-director-birthdate" id="input-director-birthdate">
 
     <label for="input-director-gender">Gender: </label>
-    <input type="text" name="input-director-gender" id="input-director-gender">
-    <select> 
-        <option value="{{this.directorID}}">{{this.name}}</option>
-
+    <select name="input-director-gender" id="input-director-gender"> 
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Non-Binary">Non-Binary</option>
+        <option value="Other">Other</option>
+    </select>
     <label for="input-director-movieCount">Movie Count: </label>
     <input type="number" name="input-director-movieCount" id="input-director-movieCount">
 
-        <option value="">Please Select a Director</option>
-        {{#each directors}}
-            <option value="{{this.directorID}}">{{this.name}}</option>
-        {{/each}}
-        <option value="">Other</option>
-    </select>
-
     <input type="submit">
 </form>
-  
+
+
+<h2>Director Search</h2>
+<form id="search-director-html" method='GET' action='/directors.hbs'>
+    <label for="search-director-name">Search by Director Name: </label>
+    <input type="text" name="search" id="search-director-name">
+    <input type="submit">
+    <a href='/directors.hbs'><button>Reset</button></a>
+</form>
+
+<h2>Update Director</h2>
+<form id="update-director-form-ajax">
+    <label for="update-director-name">Director Name: </label>
+    <select name="update-director-name" id="update-director-name">
+        <option value="">Select a Director</option>
+        {{#each data}}
+        <option value="{{this.directorID}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <label for="update-director-movieCount">New Movie Count: </label>
+    <input type="number" name="update-director-movieCount" id="update-director-movieCount">
+    <input type="submit">
+    <a href='/directors.hbs'><button>Reset</button></a>
+
+
+</form>
+
+<script src="./js/add_director.js"></script>
+<script src="./js/delete_director.js"></script>
+<script src="./js/update_director.js"></script>
 </body>
 </html>

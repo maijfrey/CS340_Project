@@ -59,6 +59,8 @@ updateMovieForm.addEventListener("submit", function (e) {
         select: updateSelectValue
     };
 
+    console.log(data);
+
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-movie-ajax", true);
@@ -95,7 +97,7 @@ updateRow = (data, movieID, column) => {
     } else if (column == 4) {
         name = 'releaseDate';
     } else {
-        name = 'director';
+        name = 'directorID';
     }
 
     for (let i = 0, row; row = movieTable.rows[i]; i++) {

@@ -73,10 +73,15 @@ app.get('/genres.hbs', function(req, res){
 });
 
 app.get('/directors.hbs', function(req, res){
-        let query1 = "SELECT * FROM Directors ORDER BY name ASC;";
-        db.pool.query(query1, function(error, rows, fields){
-            res.render('directors', {data: rows}); 
-        })
+    let query1;
+    if (req.query.search !== undefined) {
+        query1 = `SELECT * FROM Directors WHERE name LIKE "${req.query.search}%";`; 
+    } else {
+        query1 = "SELECT * FROM Directors ORDER BY name ASC;";
+    }
+    db.pool.query(query1, function(error, rows, fields){
+        res.render('directors', {data: rows}); 
+    })
 });
 
 app.get('/movies_actors.hbs', function(req, res){
@@ -120,7 +125,7 @@ app.post('/add-movie-ajax', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
+            // If there was no error, perform a SELECT * 
             query2 = `SELECT title, productionCost, grossRevenue, releaseDate, directorID FROM Movies;`;
             db.pool.query(query2, function(error, rows, fields){
 
@@ -140,6 +145,43 @@ app.post('/add-movie-ajax', function(req, res) {
      })
 });
  
+
+app.post('/add-director-ajax', function(req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Directors (name, birthdate, gender, movieCount) VALUES ('${data.name}', '${data.birthdate}', '${data.gender}', '${data.movieCount}')`;
+    query2 = `SELECT * FROM Directors;`;
+
+    db.pool.query(query1, function(error, rows, fields){
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // Show all from Directors if there is no error
+            db.pool.query(query2, function(error, rows, fields){
+                // If there was an error on the second query, send a 400
+                if (error) {
+                     // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                     console.log(error);
+                     res.sendStatus(400);
+                 }
+                 // If all went well, send the results of the query back.
+                 else
+                 {
+                     res.send(rows);
+                 }
+             })
+         }
+     })
+});
+
  /*
     DELETES
 */
@@ -159,6 +201,21 @@ app.delete('/delete-movie-ajax', function(req,res,next){
             
 })});
 
+app.delete('/delete-director-ajax', function(req,res,next){
+    let data = req.body;
+    let directorID = parseInt(data.directorID);
+    let deleteDirector =  `DELETE FROM Directors WHERE directorID = ${directorID};`;
+  
+    db.pool.query(deleteDirector, function(error, rows, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+            
+})});
+
 /*
     UPDATES
 */
@@ -167,7 +224,7 @@ app.put('/put-movie-ajax', function(req,res,next){
     let data = req.body; 
     let movieID = parseInt(data.movie);
     let category = parseData(data.category);
-    let input = parseDate(data.select);
+    let input = parseData(data.select);
 
     let updateMovie =  `UPDATE Movies
                         WHERE movieID = ${movieID}
@@ -204,6 +261,41 @@ app.put('/put-movie-ajax', function(req,res,next){
     }
            
 });
+
+app.put('/put-director-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let directorID = parseInt(data.directorID);
+    let movieCount = parseInt(data.movieCount);
+  
+    let updateDirector = `UPDATE Directors SET movieCount = ${movieCount} WHERE directorID = ${directorID};`;
+    let getDirector = `SELECT * FROM Directors WHERE directorID = ${directorID};`;
+  
+          // Run the 1st query
+          db.pool.query(updateDirector, function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                  // Run the second query
+                  db.pool.query(getDirector,function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
 
 
 /*

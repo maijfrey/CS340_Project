@@ -104,15 +104,14 @@ app.get('/movies_genres.hbs', function(req, res){
 app.post('/add-movie-ajax', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
     // Capture NULL values
     let director = parseInt(data.directorID);
-    if (isNaN(director))
-    {
+    
+    if (isNaN(director)) {
         director = 'NULL'
-    }
+    } 
 
-
+    console.log("after")
     // Create the query and run it on the database
     query1 = `INSERT INTO Movies (title, productionCost, grossRevenue, releaseDate, directorID) VALUES ('${data.title}', '${data.productionCost}', '${data.grossRevenue}', '${data.releaseDate}', ${director})`;
     db.pool.query(query1, function(error, rows, fields){
@@ -139,7 +138,7 @@ app.post('/add-movie-ajax', function(req, res) {
                  else
                  {
                      res.send(rows);
-                 }
+4                 }
              })
          }
      })

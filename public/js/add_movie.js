@@ -62,7 +62,7 @@ addMovieForm.addEventListener("submit", function (e) {
 // Create new row for the Movies Table
 addRowToTable = (data) => {
     // Movie Table reference
-    let currentTable = document.getElementById("movies-table");
+    let currentTable = document.getElementById("movies-table-body");
 
 
     let parsedData = JSON.parse(data);
@@ -106,11 +106,12 @@ addRowToTable = (data) => {
     currentTable.appendChild(row);
 
 
-    let selectUpdate = document.getElementById("input-update-movie");
+    let selectUpdate = document.getElementById("update-movie-title");
     let option = document.createElement("option");
     option.text = newRow.title;
     option.value = newRow.movieID;
     selectUpdate.add(option);
-
     
+    location.reload();
+
 }

@@ -46,31 +46,32 @@
 <p>Please add a new Director's information below and submit!</p>
 <form id="add-director-form-ajax">
     <label for="input-director-name">Name: </label>
-    <input type="text" name="input-director-name" id="input-director-name">
+    <input type="text" name="input-director-name" id="input-director-name" required>
     
     <label for="input-director-birthdate">Birthdate: </label>
-    <input type="date" name="input-director-birthdate" id="input-director-birthdate">
+    <input type="date" name="input-director-birthdate" id="input-director-birthdate" required>
 
     <label for="input-director-gender">Gender: </label>
-    <select name="input-director-gender" id="input-director-gender"> 
+    <select name="input-director-gender" id="input-director-gender" required> 
         <option value="Female">Female</option>
         <option value="Male">Male</option>
         <option value="Non-Binary">Non-Binary</option>
         <option value="Other">Other</option>
     </select>
     <label for="input-director-movieCount">Movie Count: </label>
-    <input type="number" name="input-director-movieCount" id="input-director-movieCount">
+    <input type="number" name="input-director-movieCount" id="input-director-movieCount" required>
 
     <input type="submit">
+    <input type="reset">
 </form>
 
 
 <h2>Director Search</h2>
 <form id="search-director-html" method='GET' action='/directors.hbs'>
     <label for="search-director-name">Search by Director Name: </label>
-    <input type="text" name="search" id="search-director-name">
+    <input type="text" name="search" id="search-director-name" required>
     <input type="submit">
-    <a href='/directors.hbs'><button>Reset</button></a>
+    <input type="reset">
 </form>
 
 <h2>Update Director</h2>
@@ -83,9 +84,9 @@
         {{/each}}
     </select>
     <label for="update-director-movieCount">New Movie Count: </label>
-    <input type="number" name="update-director-movieCount" id="update-director-movieCount">
+    <input type="number" name="update-director-movieCount" id="update-director-movieCount" required>
     <input type="submit">
-    <a href='/directors.hbs'><button>Reset</button></a>
+    <input type="reset">
 </form>
 
 <script src="./js/add_director.js"></script>

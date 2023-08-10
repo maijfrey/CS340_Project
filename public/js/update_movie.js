@@ -51,4 +51,5 @@ function updateRow(data, movieID){
             td.innerHTML = parsedData[0].directorID; 
        }
     }
+    location.reload();
 }

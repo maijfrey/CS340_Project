@@ -85,5 +85,7 @@ addRowToTable = (data) => {
     
     // Add row to table
     currentTable.appendChild(row);
+
+    location.reload();
     
 };

@@ -31,9 +31,9 @@ app.use(express.static('public'));
 app.get('/', function(req, res){   
     let query1;
     if (req.query.search !== undefined) {
-        query1 = `SELECT * FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
+        query1 = `SELECT movieID, title, grossRevenue, productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
     } else {
-        query1 = "SELECT movieID, title, productionCost, grossRevenue, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as FROM Movies;";
+        query1 = "SELECT movieID, title, grossRevenue, productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies;";
     }
     let query2 = "SELECT * FROM Directors;";
     db.pool.query(query1, function(error, rows, fields){
@@ -75,9 +75,9 @@ app.get('/genres.hbs', function(req, res){
 app.get('/directors.hbs', function(req, res){
     let query1;
     if (req.query.search !== undefined) {
-        query1 = `SELECT * FROM Directors WHERE name LIKE "${req.query.search}%";`; 
+        query1 = `SELECT directorID, name, gender, movieCount, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate FROM Directors WHERE name LIKE "${req.query.search}%";`; 
     } else {
-        query1 = "SELECT * FROM Directors ORDER BY name ASC;";
+        query1 = "SELECT directorID, name, gender, movieCount, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate FROM Directors ORDER BY name ASC;";
     }
     db.pool.query(query1, function(error, rows, fields){
         res.render('directors', {data: rows}); 

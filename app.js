@@ -33,7 +33,7 @@ app.get('/', function(req, res){
     if (req.query.search !== undefined) {
         query1 = `SELECT * FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
     } else {
-        query1 = "SELECT * FROM Movies;";
+        query1 = "SELECT movieID, title, productionCost, grossRevenue, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as FROM Movies;";
     }
     let query2 = "SELECT * FROM Directors;";
     db.pool.query(query1, function(error, rows, fields){

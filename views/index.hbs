@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Movie Database Website</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Movie Database Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
 </head>
 
-<header class="container">
-    <h2>Movie Information Database</h2>
-    <nav class="tabs">
-        <a class="tab" href="/">Movies</a> 
-        <a class="tab" href="actors.hbs">Actors</a> 
-        <a class="tab" href="directors.hbs">Directors</a> 
-        <a class="tab" href="genres.hbs">Genres</a> 
-        <a class="tab" href="movies_actors.hbs">Movie Actors</a>
-        <a class="tab" href="movies_genres.hbs">Movie Genres</a>
+<header>
+    <h2 class="p-3">Movie Information Database</h2>
+    <nav class="navbar nav-pills navbar-expand-sm bg-light">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 p-2">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Movies</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="actors.hbs">Actors</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="directors.hbs">Directors</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="genres.hbs">Genres</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="movies_actors.hbs">Movie Actors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="movies_genres.hbs">Movie Genres</a>
+            </li>
+        </ul>
+        <form class="d-flex ms-auto" id="search-movie-html" method='GET' action='/'>
+            <label for="input-title">Search by Title: </label>
+            <input class="form-control" type="text" name="search" id="input--html-search" required>
+            <input type="submit" class="btn btn-primary">
+            <a class="btn btn-secondary" href="/">Reset</a>
+        </form>
     </nav>
 </header>
 
 <body>
-  <table id="movies-table">
+
+  <table id="movies-table" class="table table-hover">
       <thead>
           <tr>
-              <th id="delete-button">DELETE</th>
+              <th id="delete-button"></th>
               <th>Movie Title</th>
               <th>Production Cost</th>
               <th>Gross Revenue</th>
@@ -29,11 +53,15 @@
               <th>Director</th>
           </tr>
       </thead>
+<<<<<<< HEAD
       <tbody>
 
+=======
+      <tbody id="movies-table-body">
+>>>>>>> maiBranch
           {{#each data}}
           <tr data-value={{this.movieID}}>
-              <td><button onclick="deleteMovie({{this.movieID}})">Delete</button></td>
+              <td><button class="btn btn-danger" onclick="deleteMovie({{this.movieID}})">Delete</button></td>
               <td>{{this.title}}</td>
               <td>{{this.productionCost}}</td>
               <td>{{this.grossRevenue}}</td>
@@ -45,76 +73,78 @@
   </table>
 
 
-<h2>Add a New Movie</h2>
-<p>Please add a Movie's information below and submit!</p>
-<form id="add-movie-form-ajax">
-    <label for="input-title">Title: </label>
-    <input type="text" name="input-title" id="input-title">
-    
-    <label for="input-productionCost">Production Cost: </label>
-    <input type="number" name="input-productionCost" id="input-productionCost">
+<div class="container-fluid p-3">
+    <h3>Add a New Movie</h3>
+    <p>Please add a Movie's information below and submit!</p>
+    <form id="add-movie-form-ajax" class="form-inline">
+        <div class="row">
+            <div class="form-group col">
+                <label for="input-title">Title: </label>
+                <input class="form-control" type="text" name="input-title" id="input-title" required>
+            </div>
+            <div class="form-group col">
+                <label for="input-productionCost">Production Cost: </label>
+                <input class="form-control" type="number" name="input-productionCost" id="input-productionCost" required>
+            </div>
+            <div class="form-group col">
+                <label for="input-grossRevenue">Gross Revenue: </label>
+                <input class="form-control" type="number" name="input-grossRevenue" id="input-grossRevenue" required>   
+            </div>
+            <div class="form-group col">
+                <label for="input-releaseDate">Release Date: </label>
+                <input class="form-control" type="date" name="input-releaseDate" id="input-releaseDate" required>
+            </div>
+            <div class="form-group col">
+                <label for="input-director">Director: </label>
+                <select class="form-control" name="input-director" id="input-director">
+                    <option value="">Please Select a Director</option>
+                    {{#each directors}}
+                        <option value="{{this.directorID}}">{{this.name}}</option>
+                    {{/each}}
+                    <option value="">None</option>
+                </select>
+            </div>
+        </div>
+        <div class="pt-2">
+            <input type="submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-secondary">
+        </div>
+    </form>
+</div>
 
-    <label for="input-grossRevenue">Gross Revenue: </label>
-    <input type="number" name="input-grossRevenue" id="input-grossRevenue">
 
-    <label for="input-releaseDate">Release Date: </label>
-    <input type="date" name="input-releaseDate" id="input-releaseDate">
+<div class="container-fluid p-3">
+    <h3>Update a Movie</h3>
+    <form class="form-inline" id="update-movie-form">
+        <label for="update-movie-title">Title: </label>
+        <select class="form-control" onchange="updateMovie()" name="update-movie-title" id="update-movie-title">
+            <option value="">Select a Title</option>
+            {{#each data}}
+                <option value="{{this.movieID}}">{{this.title}}</option>
+            {{/each}}
+        </select>
+        
+        <label for="update-movie-director">New Director:</label>
+        <select class="form-control" name="update-movie-director" id="update-movie-director" required>
+            <option value="">Select a Director</option>
+            {{#each directors}}
+                <option value="{{this.directorID}}">{{this.name}}</option>
+            {{/each}}
+            <option value="">None</option>
+        </select>
+        <div class="pt-2">
+            <input type="submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-secondary">
+        </div>
 
-    <label for="input-director">Director: </label>
-    <select name="input-director" id="input-director">
-        <option value="">Please Select a Director</option>
-        {{#each directors}}
-            <option value="{{this.directorID}}">{{this.name}}</option>
-        {{/each}}
-        <option value="">Other</option>
-    </select>
-
-    <input type="submit">
-</form>
-
-<h2>Movie Search</h2>
-<form id="search-movie-html" method='GET' action='/'>
-    <label for="input-title">Search by Title: </label>
-    <input type="text" name="search" id="input--html-search">
-
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form>
-
-
-<h2>Update a Movie</h2>
-<form id="update-movie-form-ajax">
-    <label for="input-update-movie">Movie Title: </label>
-    <select name="input-update-movie" id="input-update-movie">
-        <option value="test">Select a Title</option>
-        {{#each data}}
-        <option value="{{this.movieID}}">{{this.title}}</option>
-        {{/each}}
-    </select>
-    <div></div>
-
-    <label for="input-update-category">Attribute to Update:</label>
-    <select name="input-update-category" id="input-update-category";>
-        <option >Select an Attribute to Update </option>
-        <option id="title-category" value="title">Title</option>
-        <option id="productionCost-category" value="productionCost">Production Cost</option>
-        <option id="grossRevenue-cateogry"value="grossRevenue">Gross Revenue</option>
-        <option id="releaseDate-category" value="releaseDate">Release Date</option>
-        <option id="director-category" value="director">Director</option>
-    </select>
-    <div>
-        <label for="input-update-text">New Value:</label>
-        <!-- Input type changes based off of selected attribute/category to update-->
-        <input name="input-update-text" id="input-update-text">
-    </div>
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form>
- 
+    </form>
+</div>
 
 <script src="./js/add_movie.js"></script>
 <script src="./js/delete_movie.js"></script>
 <script src="./js/update_movie.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

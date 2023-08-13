@@ -94,7 +94,7 @@ addRowToTable = (data) => {
 
     // Create new delete button 
     deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "delete";
+    deleteCell.innerHTML = "";
     deleteCell.onclick = function(){
         deleteMovie(newRow.movieID);
     };
@@ -118,4 +118,7 @@ addRowToTable = (data) => {
     option.text = newRow.title;
     option.value = newRow.movieID;
     selectUpdate.add(option);
+
+    location.reload();
+
 }

@@ -30,11 +30,14 @@
                 <a class="nav-link" href="movies_genres.hbs">Movie Genres</a>
             </li>
         </ul>
-        <form class="d-flex ms-auto" id="search-actor-html" method='GET' action='/actors.hbs'>
-            <label for="search-actor-name">Search Actor Name: </label>
-            <input class="form-control" type="text" name="search" id="search-actor-name" required>
-            <input type="submit" class="btn btn-primary">
-            <a class="btn btn-secondary" href="actors.hbs">Reset</a>
+        <form class="navbar-form navbar-left row" id="search-actor-html" method='GET' action='/actors.hbs'>
+            <div class="col">
+                <input placeholder="Search Actor Name" class="form-control" type="text" name="search" id="search-actor-name" required>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary">
+                <a class="btn btn-secondary" href="actors.hbs">Reset</a>
+            </div>
         </form>
     </nav>
 </header>

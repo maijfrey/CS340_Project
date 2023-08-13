@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Movie Database Website</title>
+    {{!-- {{Linking to bootstraps}} --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -11,6 +12,7 @@
 <header>
     <h2 class="p-3">Movie Information Database</h2>
     <nav class="navbar nav-pills navbar-expand-sm bg-light">
+        {{!-- {{Navbar leading to other pages}} --}}
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 p-2">
             <li class="nav-item">
                 <a class="nav-link active" href="/">Movies</a> 
@@ -31,47 +33,53 @@
                 <a class="nav-link" href="movies_genres.hbs">Movie Genres</a>
             </li>
         </ul>
-        <form class="d-flex ms-auto" id="search-movie-html" method='GET' action='/'>
-            <label for="input-title">Search by Title: </label>
-            <input class="form-control" type="text" name="search" id="input--html-search" required>
-            <input type="submit" class="btn btn-primary">
-            <a class="btn btn-secondary" href="/">Reset</a>
+        {{!-- {{Search movies based on title}} --}}
+        <form class="navbar-form navbar-left row" id="search-movie-html" method='GET' action='/'>
+            <div class="col">
+                <input placeholder="Search by Title" class="form-control rounded" type="text" name="search" id="input--html-search" required>
+            </div>
+            <div class="col align-self-end">
+                <input type="submit" class="btn btn-primary">
+                <a class="btn btn-secondary" href="/">Reset</a>
+            </div>
         </form>
     </nav>
 </header>
 
 <body>
-
-  <table id="movies-table" class="table table-hover">
-      <thead>
-          <tr>
-              <th id="delete-button"></th>
-              <th>Movie Title</th>
-              <th>Production Cost</th>
-              <th>Gross Revenue</th>
-              <th>Release Date</th>
-              <th>Director</th>
-          </tr>
-      </thead>
-      <tbody id="movies-table-body">
-          {{#each data}}
-          <tr data-value={{this.movieID}}>
-              <td><button class="btn btn-danger" onclick="deleteMovie({{this.movieID}})">Delete</button></td>
-              <td>{{this.title}}</td>
-              <td>{{this.productionCost}}</td>
-              <td>{{this.grossRevenue}}</td>
-              <td>{{this.releaseDate}}</td>
-              <td>{{this.directorID}}</td>            
-          </tr>
-          {{/each}}
-      </tbody>
-  </table>
+    {{!-- {{Table rendering Movies} --}}
+    <table id="movies-table" class="table table-hover">
+        <thead>
+            <tr>
+                <th id="delete-button">Delete</th>
+                <th>Movie Title</th>
+                <th>Production Cost</th>
+                <th>Gross Revenue</th>
+                <th>Release Date</th>
+                <th>Director</th>
+            </tr>
+        </thead>
+         <tbody id="movies-table-body">
+            {{#each data}}
+            <tr data-value={{this.movieID}}>
+                <td><button class="btn btn-danger" onclick="deleteMovie({{this.movieID}})">Delete</button></td>
+                <td>{{this.title}}</td>
+                <td>{{this.productionCost}}</td>
+                <td>{{this.grossRevenue}}</td>
+                <td>{{this.releaseDate}}</td>
+                <td>{{this.directorID}}</td>            
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 
 
     <div class="row p-4">
+        {{!-- {{Adding new Movie}} --}}
         <div class="container-fluid p-3 border col">
             <h3>Add a New Movie</h3>
             <p>Please add a Movie's information below and submit!</p>
+            {{!-- {{Form for new movie information}} --}}
             <form id="add-movie-form-ajax" class="form-inline">
                 <div class="row">
                     <div class="form-group col">
@@ -94,6 +102,7 @@
                     </div>
                     <div class="form-group col">
                         <label for="input-director">Director: </label>
+                        {{!-- {{Director select via dropdown}} --}}
                         <select class="form-control" name="input-director" id="input-director">
                             <option value="">Please Select a Director</option>
                             {{#each directors}}
@@ -110,11 +119,13 @@
             </form>
         </div>
 
+        {{!-- {{Updating Movie's director}} --}}
         <div class="container-fluid p-3 border col">
             <h3>Update a Movie</h3>
             <p>Please update a Movie's director and press submit!</p>
             <form class="form-inline" id="update-movie-form">
                 <label for="update-movie-title">Title: </label>
+                {{!-- {{Movie title select to Update info for}} --}}
                 <select class="form-control" name="update-movie-title" id="update-movie-title">
                     <option value="">Select a Title</option>
                         {{#each data}}
@@ -122,6 +133,7 @@
                         {{/each}}
                     </select>
                 <label for="update-movie-director">New Director:</label>
+                {{!-- {{Updated director select for above selected movie}} --}}
                 <select class="form-control" name="update-movie-director" id="update-movie-director" required>
                     <option value="">Select a New Director</option>
                         {{#each directors}}

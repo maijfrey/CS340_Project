@@ -1,3 +1,8 @@
+// Citation for the following the functions on the page: 
+// Date: 08-10-2023
+// Adapted from: This module was adapted from the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+
 // Delete Movie AJAX Request
 function deleteDirector(directorID) {
     // Data to send over

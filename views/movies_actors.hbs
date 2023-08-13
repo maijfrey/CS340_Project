@@ -57,20 +57,20 @@
         </thead>
         <tbody>
             {{#each data}}
-                <tr movie-value ={{this.movieID}}  actor-value ={{this.actorID}} character-value ={{this.characterName}}>
+                <tr movie-value={{this.movieID}} actor-value={{this.actorID}} character-value="{{this.characterName}}">
                 <td><button class="btn btn-danger" onclick="deleteMovieActor({{this.movieID}},{{this.actorID}},'{{this.characterName}}')">Delete</button></td>
-                <td>{{this.movieID}}</td>
-                <td>{{this.actorID}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.name}}</td>
                 <td>{{this.characterName}}</td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-    
+  
     <div class="row p-4">
         <div class="container-fluid p-3 border col">
             <h3>Add a New Movie and Actor Relationship</h3>
-            <p>Please add a new Movie ID, Actor ID, and character name relationship below and submit!</p>
+            <p>Please add a new Movie, Actor, and Character Name relationship below and submit!</p>
             <form id="add-movie_actor-form-ajax">
                 <div class="row">
                     <div class="col">
@@ -105,26 +105,27 @@
             </form>
         </div>
 
+
         <div class="container-fluid p-3 border col">
             <h3>Update Character Name</h3>
             <p>Please update a character name below and submit!</p>
             <form id="update-movie_actor-form-ajax">
                 <div class="row">
                     <div class="col">
-                        <label for="update-movie_actor-movieID">MovieID: </label>
+                        <label for="update-movie_actor-movieID">Movie: </label>
                         <select class="form-control" name="update-movie_actor-movieID" id="update-movie_actor-movieID">
-                            <option value="">Select a MovieID</option>
+                            <option value="">Select a Movie</option>
                             {{#each movies}}
-                            <option value="{{this.movieID}}">{{this.movieID}}</option>
+                            <option value="{{this.movieID}}">{{this.title}}</option>
                             {{/each}}
                         </select>
                     </div>
                     <div class="col">
-                        <label for="update-movie_actor-actorID">ActorID: </label>
+                        <label for="update-movie_actor-actorID">Actor: </label>
                         <select class="form-control" name="update-movie_actor-actorID" id="update-movie_actor-actorID">
-                            <option value="">Select an ActorID</option>
+                            <option value="">Select an Actor</option>
                             {{#each actors}}
-                            <option value="{{this.actorID}}">{{this.actorID}}</option>
+                            <option value="{{this.actorID}}">{{this.name}}</option>
                             {{/each}}
                         </select>
                     </div>
@@ -146,7 +147,6 @@
             </form>
         </div>
     </div>
-
 
     <script src="./js/add_movie_actor.js"></script>
     <script src="./js/delete_movie_actor.js"></script>

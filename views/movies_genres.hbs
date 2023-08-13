@@ -32,10 +32,10 @@
         </ul>
         <form class="ms-auto row" id="search-movie_genre-html" method='GET' action='/movies_genres.hbs'>
             <div class="col align-self-center">
-                <label for="search-movie_genre-id">Search by Genre ID: </label>
+                <label for="search-movie_genre">Search by Genre: </label>
             </div>
             <div class="col">
-                <input class="form-control" type="number" name="search" id="search-movie_genre-id" required>
+                <input class="form-control" type="text" name="search" id="search-movie_genre" required>
             </div>
             <div class="col">
                 <input type="submit" class="btn btn-primary">
@@ -50,8 +50,8 @@
       <thead>
           <tr>
               <th id="delete-button">Delete</th>
-              <th>Movie ID</th>
-              <th>Genre ID</th>
+              <th>Movie Name</th>
+              <th>Genre Name</th>
           </tr>
       </thead>
       <tbody>
@@ -59,16 +59,17 @@
           {{#each data}}
               <tr movie-value ={{this.movieID}}  genre-value ={{this.genreID}}>
               <td><button class="btn btn-danger" onclick="deleteMovieGenre({{this.movieID}},{{this.genreID}})">Delete</button></td>
-              <td>{{this.movieID}}</td>
-              <td>{{this.genreID}}</td>
+              <td>{{this.title}}</td>
+              <td>{{this.genreName}}</td>
           </tr>
           {{/each}}
       </tbody>
   </table>
+
     <div class="row p-4">
         <div class="container-fluid p-3 border col">
             <h3>Add a New Movie and Genre Relationship</h3>
-            <p>Please add a new Movie ID, and Genre ID relationship below and submit!</p>
+            <p>Please add a new Movie, and Genre relationship below and submit!</p>
             <form id="add-movie_genre-form-ajax">
                 <div class="row">
                     <div class="col">
@@ -98,27 +99,26 @@
                 </div>
             </form>
         </div>
-
         <div class="container-fluid p-3 border col">
             <h3>Update Genre Movie Relationship</h3>
             <p>Please update a Movie's Genre below and submit!</p>
             <form id="update-movie_genre-form-ajax">
                 <div class="row">
                     <div class="col">
-                        <label for="update-movie_genre-movieID">MovieID: </label>
+                        <label for="update-movie_genre-movieID">Movie: </label>
                         <select class="form-control" name="update-movie_genre-movieID" id="update-movie_genre-movieID">
-                            <option value="">Select a MovieID</option>
+                            <option value="">Select a Movie</option>
                             {{#each movies}}
-                            <option value="{{this.movieID}}">{{this.movieID}}</option>
+                            <option value="{{this.movieID}}">{{this.title}}</option>
                             {{/each}}
                         </select>
                     </div>
                     <div class="col">
-                        <label for="update-input-movie_genre-genreID"> Current genreID: </label>
+                        <label for="update-input-movie_genre-genreID"> Current Genre: </label>
                         <select class="form-control" name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
-                            <option value="">Select a GenreID</option>
+                            <option value="">Select a Genre</option>
                             {{#each genres}}
-                            <option value="{{this.genreID}}">{{this.genreID}}</option>
+                            <option value="{{this.genreID}}">{{this.name}}</option>
                             {{/each}}
                         </select>
                     </div>
@@ -138,9 +138,6 @@
                 </div>
             </form>
         </div>
-
-    </div>
-
 
     <script src="./js/add_movie_genre.js"></script>
     <script src="./js/delete_movie_genre.js"></script>

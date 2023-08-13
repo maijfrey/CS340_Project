@@ -105,20 +105,26 @@
     <div class="containter-fluid p-3">
         <h3>Update a Director</h3>
         <form id="update-director-form-ajax">
-            <label for="update-director-name">Director Name: </label>
-            {{!-- {{Director to Update info for}} --}}
-            <select class="form-control" name="update-director-name" id="update-director-name">
-                <option value="">Select a Director</option>
-                {{#each data}}
-                <option value="{{this.directorID}}">{{this.name}}</option>
-                {{/each}}
-            </select>
-            {{!-- {{New Movie Count Input}} --}}
-            <label for="update-director-movieCount">New Movie Count: </label>
-            <input class="form-control" type="number" name="update-director-movieCount" id="update-director-movieCount" required>
-            <div class="pt-2">
-                <input type="submit" class="btn btn-primary">
-                <input type="reset" class="btn btn-secondary">
+            <div class="row">
+                <div class="col">
+                    <label for="update-director-name">Director Name: </label>
+                    {{!-- {{Director to Update info for}} --}}
+                    <select class="form-control" name="update-director-name" id="update-director-name">
+                        <option value="">Select a Director</option>
+                        {{#each data}}
+                        <option value="{{this.directorID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col">
+                    {{!-- {{New Movie Count Input}} --}}
+                    <label for="update-director-movieCount">New Movie Count: </label>
+                    <input class="form-control" type="number" name="update-director-movieCount" id="update-director-movieCount" required>
+                </div>
+                <div class="col align-self-end">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
+                </div>
             </div>
         </form>
     </div>

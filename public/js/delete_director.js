@@ -20,18 +20,21 @@ function deleteDirector(directorID) {
             deleteRow(directorID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
+            // error handling
             console.log("There was an error with the input.")
         }
     }
-    // Send the request and wait for the response
+    // Send data and request
     xhttp.send(JSON.stringify(data));
 }
 
-
+// Function to deleteRow with the specified directorID
 function deleteRow(directorID){
     let table = document.getElementById("directors-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
+        // Run loop until correct directorID is identified
        if (table.rows[i].getAttribute("data-value") == directorID) {
+            // Delete row at specified directorID
             table.deleteRow(i);
             break;
        }

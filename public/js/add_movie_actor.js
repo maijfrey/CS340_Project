@@ -46,10 +46,11 @@ addMovieActorForm.addEventListener("submit", function (e) {
             inputCharacterName.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            // error handling
             console.log("There was an error with the input.")
         }
     }
-    // Send the request and wait for the response
+    // Send data and request
     xhttp.send(JSON.stringify(data));
 })
 

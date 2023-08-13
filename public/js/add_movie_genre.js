@@ -42,9 +42,12 @@ addMovieGenreForm.addEventListener("submit", function (e) {
             inputGenre.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            // error handling
             console.log("There was an error with the input.")
         }
     }
+
+    // Send data and request
     xhttp.send(JSON.stringify(data));
 
 })

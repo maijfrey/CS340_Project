@@ -31,17 +31,16 @@ updateGenreForm.addEventListener("submit", function(e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add the new data to the table
             updateRow(xhttp.response, updateInputNameValue);
-
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            // error handling
             console.log("There was an error with the input.")
         }
     }
 
-    // Send the request and wait for the response
+    // Send data and request
     xhttp.send(JSON.stringify(data));
 
 });

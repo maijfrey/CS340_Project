@@ -32,8 +32,10 @@ function deleteMovie(movieID) {
 // Delete given movie 
 function deleteRow(movieID){
     let table = document.getElementById("movies-table");
+    // Run loop until given movieID is found
     for (let i = 0, row; row = table.rows[i]; i++) {
        if (table.rows[i].getAttribute("data-value") == movieID) {
+            // Delete row at specified movieID
             table.deleteRow(i);
             break;
        }

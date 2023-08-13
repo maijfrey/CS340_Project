@@ -36,18 +36,19 @@ updateMovieActorForm.addEventListener("submit", function(e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
+        console.log("here");
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add the new data to the table
-            updateRow(xhttp.response, movieID,actorID,inputCharacterName,outputCharacterName);
+            updateRow(xhttp.response, movieIDValue,actorIDValue,inputCharacterNameValue,outputCharacterNameValue);
             location.reload();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            // error handling
             console.log("There was an error with the input.")
         }
     }
 
-    // Send the request and wait for the response
+    // Send data and request
     xhttp.send(JSON.stringify(data));
 
 });
@@ -55,7 +56,6 @@ updateMovieActorForm.addEventListener("submit", function(e) {
 // Update the HTML Table row
 function updateRow(data, movieID, actorID, inputCharacterName, outputCharacterName) {
     let table = document.getElementById("movies_actors-table");
-
     for (let i = 0, row; row = table.rows[i]; i++) {
         if (table.rows[i].getAttribute("movie-value") == movieID &&
             table.rows[i].getAttribute("actor-value") == actorID &&
@@ -67,9 +67,7 @@ function updateRow(data, movieID, actorID, inputCharacterName, outputCharacterNa
             td.innerHTML = outputCharacterName;
 
             // Reassign Character Name to our value we updated to
-            table.rows[i].setAttribute('character-value', outputCharacterName);
-
-            break;
+            table.rows[i].setAttribute('character-value', outputCharacterName);            break;
         }
     }
 }

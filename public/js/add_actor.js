@@ -1,36 +1,45 @@
-let addDirectorForm = document.getElementById('add-director-form-ajax');
+// Get the add movie form
+let addActorForm = document.getElementById('add-actor-form-ajax');
 
-addDirectorForm.addEventListener("submit", function(e) {
+// Add event listener for submission
+addActorForm.addEventListener("submit", function (e) {
+    
+    // Prevent the form from submitting
     e.preventDefault();
 
-    // Get elements
-    let inputName = document.getElementById('input-director-name');
-    let inputBirthdate = document.getElementById('input-director-birthdate');
-    let inputGender = document.getElementById('input-director-gender');
-    let inputMovieCount = document.getElementById('input-director-movieCount');
+    // Get element via element ID
+    let inputName = document.getElementById("input-actor-name");
+    let inputBirthdate = document.getElementById("input-actor-birthdate");
+    let inputGender = document.getElementById("input-actor-gender");
+    let inputMovieCount = document.getElementById("input-actor-movieCount");
 
-    // Get element values
-    let nameValue = inputName.value;
+    // Get values from input elements
+    let nameValue =  inputName.value;
     let birthdateValue = inputBirthdate.value;
     let genderValue = inputGender.value;
     let movieCountValue = inputMovieCount.value;
 
-    // Data to send 
+
+    // Put our data we want to send in a javascript object
     let data = {
         name: nameValue,
         birthdate: birthdateValue,
         gender: genderValue,
-        movieCount: movieCountValue
-    };
-
-    // POST Request
+        movieCount: movieCountValue,
+    }
+    
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-director-ajax", true);
+    xhttp.open("POST", "/add-actor-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
+
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
+
             // Add new data
             addRowToTable(xhttp.response);
+
             // Clear the inputs 
             inputName.value = '';
             inputBirthdate.value = '';
@@ -41,13 +50,19 @@ addDirectorForm.addEventListener("submit", function(e) {
             console.log("There was an error with the input.")
         }
     }
+    // Send the request and wait for the response
+    console.log(JSON.stringify(data));
 
     xhttp.send(JSON.stringify(data));
-});
 
+})
+
+
+// Create new row for the Movies Table
 addRowToTable = (data) => {
-    // Director Table reference
-    let currentTable = document.getElementById("directors-table");
+
+    // Movie Table reference
+    let currentTable = document.getElementById("actors-table");
 
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
@@ -71,7 +86,7 @@ addRowToTable = (data) => {
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteMovie(newRow.directorID);
+        deleteActor(newRow.actorID);
     };
 
     // Add data to row
@@ -81,11 +96,10 @@ addRowToTable = (data) => {
     row.appendChild(genderCell);
     row.appendChild(movieCountCell);
 
-    row.setAttribute('data-value', newRow.directorID);
+    row.setAttribute('data-value', newRow.actorID);
     
     // Add row to table
     currentTable.appendChild(row);
 
     location.reload();
-    
-};
+}

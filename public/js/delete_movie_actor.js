@@ -1,18 +1,20 @@
 // Delete Movie AJAX Request
-function deleteDirector(directorID) {
+function deleteMovieActor(movieID,actorID,characterName) {
     // Data to send over
     let data = {
-        directorID: directorID
+        movieID: movieID,
+        actorID: actorID,
+        characterName: characterName
     };
 
     // AJAX Request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-director-ajax", true);
+    xhttp.open("DELETE", "/delete-movie_actor-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
             // Delete appropriate row
-            deleteRow(directorID);
+            deleteRow(movieID,actorID,characterName);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
@@ -23,10 +25,12 @@ function deleteDirector(directorID) {
 }
 
 
-function deleteRow(directorID){
-    let table = document.getElementById("directors-table");
+function deleteRow(movieID,actorID,characterName){
+    let table = document.getElementById("movies_actors-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-       if (table.rows[i].getAttribute("data-value") == directorID) {
+       if (table.rows[i].getAttribute("movie-value") == movieID &&
+           table.rows[i].getAttribute("actor-value") == actorID &&
+            table.rows[i].getAttribute("character-value") == characterName) {
             table.deleteRow(i);
             break;
        }

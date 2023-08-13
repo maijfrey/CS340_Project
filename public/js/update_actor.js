@@ -1,21 +1,21 @@
-let updateDirectorForm = document.getElementById('update-director-form-ajax');
+let updateActorForm = document.getElementById('update-actor-form-ajax');
 
-updateDirectorForm.addEventListener("submit", function(e) {
+updateActorForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    let updateDirector = document.getElementById("update-director-name");
-    let updateMovieCount = document.getElementById("update-director-movieCount");
+    let updateActor = document.getElementById("update-actor-name");
+    let updateMovieCount = document.getElementById("update-actor-movieCount");
 
-    let directorValue = updateDirector.value;
+    let actorValue = updateActor.value;
     let movieCountValue = updateMovieCount.value;
 
     let data = { 
-        directorID: directorValue,
+        actorID: actorValue,
         movieCount: movieCountValue
     };
 
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-director-ajax", true);
+    xhttp.open("PUT", "/put-actor-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -23,7 +23,7 @@ updateDirectorForm.addEventListener("submit", function(e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, directorValue);
+            updateRow(xhttp.response, actorValue);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -36,12 +36,12 @@ updateDirectorForm.addEventListener("submit", function(e) {
 
 });
 
-function updateRow(data, directorID){
+function updateRow(data, actorID){
     let parsedData = JSON.parse(data);
-    let table = document.getElementById("directors-table");
+    let table = document.getElementById("actors-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
-       if (table.rows[i].getAttribute("data-value") == directorID) {
+       if (table.rows[i].getAttribute("data-value") == actorID) {
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Get td of homeworld value

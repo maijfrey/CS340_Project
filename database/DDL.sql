@@ -1,11 +1,16 @@
 -- Title: Movie Information Database Data Definitions
 -- Assignment: Project Step 3 Draft
 -- Authors: Mai Frey and Ayra Sears
--- Due Date: 2023-07-17
 
-SET FOREIGN_KEY_CHECKS=0;
-SET AUTOCOMMIT=0;
+SET FOREIGN_KEY_CHECKS = 0;
+SET AUTOCOMMIT = 0;
 
+-- Drop all tables if they have existed previously
+DROP TABLE IF EXISTS Movies_Actors;
+DROP TABLE IF EXISTS Movies_Genres;
+DROP TABLE IF EXISTS Genres;
+DROP TABLE IF EXISTS Actors;
+DROP TABLE IF EXISTS Movies;
 DROP TABLE IF EXISTS Directors;
 
 -- Create Directors Table
@@ -17,8 +22,6 @@ CREATE TABLE Directors (
     movieCount int NOT NULL,
     PRIMARY KEY (directorID)
 );
-
-DROP TABLE IF EXISTS Movies;
 
 -- Create Movies Table
 CREATE TABLE Movies (
@@ -32,9 +35,6 @@ CREATE TABLE Movies (
     FOREIGN KEY (directorID) REFERENCES Directors(directorID) ON DELETE SET NULL ON UPDATE CASCADE
  );
 
-
-DROP TABLE IF EXISTS Actors;
-
 -- Create Actors Table
 CREATE TABLE Actors (
     actorID int NOT NULL AUTO_INCREMENT UNIQUE,
@@ -45,16 +45,12 @@ CREATE TABLE Actors (
     PRIMARY KEY (actorID)
 );
 
-DROP TABLE IF EXISTS Genres;
-
 -- Create Genres Table 
 CREATE TABLE Genres (
     genreID int NOT NULL AUTO_INCREMENT UNIQUE,
     `name` varchar(255) NOT NULL,
     PRIMARY KEY (genreID)
 );
-
-DROP TABLE IF EXISTS Movies_Actors;
 
 -- Create Movies_Actors Table
 CREATE TABLE Movies_Actors (
@@ -64,8 +60,6 @@ CREATE TABLE Movies_Actors (
     FOREIGN KEY (movieID) REFERENCES Movies(movieID) ON DELETE CASCADE ON UPDATE CASCADE,   
     FOREIGN KEY (actorID) REFERENCES Actors(actorID) ON DELETE CASCADE ON UPDATE CASCADE  
 );
-
-DROP TABLE IF EXISTS Movies_Genres;
 
 -- Create Movies_Genres Table
 CREATE TABLE Movies_Genres (

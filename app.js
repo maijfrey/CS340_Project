@@ -1,3 +1,8 @@
+// Citation for the following the functions on the page: 
+// Date: 07-29-2023
+// Adapted from: This module was adapted from the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+
 /*
     SETUP
 */
@@ -31,9 +36,9 @@ app.use(express.static('public'));
 app.get('/', function(req, res){   
     let query1;
     if (req.query.search !== undefined) {
-        query1 = `SELECT movieID, title, grossRevenue, productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
+        query1 = `SELECT movieID, title,  CONCAT('$', FORMAT(grossRevenue, 0)) as grossRevenue, CONCAT('$', FORMAT(productionCost, 0)) as productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
     } else {
-        query1 = "SELECT movieID, title, grossRevenue, productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies;";
+        query1 = "SELECT movieID, title, CONCAT('$', FORMAT(grossRevenue, 0)) as grossRevenue, CONCAT('$', FORMAT(productionCost, 0)) as productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies;";
     }
     let query2 = "SELECT * FROM Directors;";
     db.pool.query(query1, function(error, rows, fields){

@@ -1,3 +1,8 @@
+// Citation for the following the functions on the page: 
+// Date: 08-08-2023
+// Adapted from: This module was adapted from the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+
 // Delete Movie AJAX Request
 function deleteMovie(movieID) {
     // Data to send over
@@ -15,14 +20,16 @@ function deleteMovie(movieID) {
             deleteRow(movieID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
+            // Error handling
             console.log("There was an error with the input.")
         }
     }
-    // Send the request and wait for the response
+    // Send the request
     xhttp.send(JSON.stringify(data));
 }
 
 
+// Delete given movie 
 function deleteRow(movieID){
     let table = document.getElementById("movies-table");
     for (let i = 0, row; row = table.rows[i]; i++) {

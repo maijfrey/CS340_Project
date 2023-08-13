@@ -1,3 +1,8 @@
+// All source code based on the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Last Updated: 8/13/2021
+
+// Delete Actor AJAX Request
 function deleteActor(actorID) {
     // Data to send over
     let data = {
@@ -21,7 +26,7 @@ function deleteActor(actorID) {
     xhttp.send(JSON.stringify(data));
 }
 
-
+// HTML Table Row deletion functionality
 function deleteRow(actorID){
     let table = document.getElementById("actors-table");
     for (let i = 0, row; row = table.rows[i]; i++) {

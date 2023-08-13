@@ -1,4 +1,8 @@
-// Get the add movie form
+// All source code based on the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Last Updated: 8/13/2021
+
+// Get the form
 let addActorForm = document.getElementById('add-actor-form-ajax');
 
 // Add event listener for submission
@@ -7,20 +11,20 @@ addActorForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
-    // Get element via element ID
+    // Get elements
     let inputName = document.getElementById("input-actor-name");
     let inputBirthdate = document.getElementById("input-actor-birthdate");
     let inputGender = document.getElementById("input-actor-gender");
     let inputMovieCount = document.getElementById("input-actor-movieCount");
 
-    // Get values from input elements
+    // Get element values
     let nameValue =  inputName.value;
     let birthdateValue = inputBirthdate.value;
     let genderValue = inputGender.value;
     let movieCountValue = inputMovieCount.value;
 
 
-    // Put our data we want to send in a javascript object
+    // Data to send (element values)
     let data = {
         name: nameValue,
         birthdate: birthdateValue,
@@ -28,7 +32,7 @@ addActorForm.addEventListener("submit", function (e) {
         movieCount: movieCountValue,
     }
     
-    // Setup our AJAX request
+    // AJAX POST Request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-actor-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
@@ -36,10 +40,8 @@ addActorForm.addEventListener("submit", function (e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
-            // Add new data
+            // Add new row/data
             addRowToTable(xhttp.response);
-
             // Clear the inputs 
             inputName.value = '';
             inputBirthdate.value = '';
@@ -51,17 +53,13 @@ addActorForm.addEventListener("submit", function (e) {
         }
     }
     // Send the request and wait for the response
-    console.log(JSON.stringify(data));
-
     xhttp.send(JSON.stringify(data));
-
 })
 
-
-// Create new row for the Movies Table
+// Create new row for the table
 addRowToTable = (data) => {
 
-    // Movie Table reference
+    // Table reference
     let currentTable = document.getElementById("actors-table");
 
     let parsedData = JSON.parse(data);

@@ -1,4 +1,8 @@
-// Get the add movie form
+// All source code based on the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Last Updated: 8/13/2021
+
+// Get the form
 let addMovieGenreForm = document.getElementById('add-movie_genre-form-ajax');
 
 // Add event listener for submission
@@ -7,23 +11,23 @@ addMovieGenreForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
-    // Get element via element ID
+    // Get elements
     let inputTitle = document.getElementById("input-movieTitle");
     let inputGenre = document.getElementById("input-genreName");
 
 
-    // Get values from input elements
+    // Get element values
     let titleValue = inputTitle.value;
     let genreValue = inputGenre.value;
 
 
-    // Put our data we want to send in a javascript object
+    // Data to send (element values)
     let data = {
         movieID: titleValue,
         genreID: genreValue,
     }
     
-    // Setup our AJAX request
+    // AJAX POST Request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-movie_genre-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
@@ -31,10 +35,8 @@ addMovieGenreForm.addEventListener("submit", function (e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add new data
             addRowToTable(xhttp.response);
-
             // Clear the inputs 
             inputTitle.value = '';
             inputGenre.value = '';
@@ -43,18 +45,15 @@ addMovieGenreForm.addEventListener("submit", function (e) {
             console.log("There was an error with the input.")
         }
     }
-    // Send the request and wait for the response
-    console.log(JSON.stringify(data));
-
     xhttp.send(JSON.stringify(data));
 
 })
 
 
-// Create new row for the Movies Table
+// Create new row for the table
 addRowToTable = (data) => {
 
-    // Movie Table reference
+    // Table reference
     let currentTable = document.getElementById("movies_genres-table");
 
     let parsedData = JSON.parse(data);

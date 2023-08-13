@@ -21,18 +21,60 @@
   <table id="genres-table">
       <thead>
           <tr>
+              <th id="delete-button">DELETE</th>
               <th>Genre Name</th>
           </tr>
       </thead>
       <tbody>
 
           {{#each data}}
-          <tr>
+          <tr data-value={{this.genreID}}>
+              <td><button onclick="deleteGenre({{this.genreID}})">Delete</button></td>
               <td>{{this.name}}</td>
           </tr>
           {{/each}}
       </tbody>
   </table>
-  
+
+<h2>Add a New Genre</h2>
+<p>Please add an Genre name below and submit!</p>
+<form id="add-genre-form-ajax">
+    <label for="input-genre-name">Genre Name: </label>
+    <input type="text" name="input-genre-name" id="input-genre-name">
+    
+    <input type="submit">
+    <a href='/genres.hbs'><button>Reset</button></a>
+</form> 
+
+<h2>Genre Search</h2>
+<form id="search-genre-html" method='GET' action='/genres.hbs'>
+    <label for="search-genre-name">Search by Genre Name: </label>
+    <input type="text" name="search" id="search-genre-name">
+
+
+    <input type="submit">
+    <a href='/genres.hbs'><button>Reset</button></a>
+</form>
+
+<h2>Update Genre</h2>
+<form id="update-genre-form-ajax">
+    <label for="update-genre-input-name">Genre Name: </label>
+    <select name="update-genre-input-name" id="update-genre-input-name">
+        <option value="">Select a Genre</option>
+        {{#each data}}
+        <option value="{{this.genreID}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <label for="update-genre-output-name">New Name: </label>
+    <input type="text" name="update-genre-output-name" id="update-genre-output-name" required>
+    <input type="submit">
+    <a href='/genres.hbs'><button>Reset</button></a>
+</form>
+
+<script src="./js/add_genre.js"></script>
+<script src="./js/delete_genre.js"></script>
+<script src="./js/update_genre.js"></script>
+
+
 </body>
 </html>

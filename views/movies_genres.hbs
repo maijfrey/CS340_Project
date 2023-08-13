@@ -30,12 +30,9 @@
                 <a class="nav-link active" href="movies_genres.hbs">Movie Genres</a>
             </li>
         </ul>
-        <form class="ms-auto row" id="search-movie_genre-html" method='GET' action='/movies_genres.hbs'>
-            <div class="col align-self-center">
-                <label for="search-movie_genre">Search by Genre: </label>
-            </div>
+        <form class="navbar-form navbar-left row" id="search-movie_genre-html" method='GET' action='/movies_genres.hbs'>
             <div class="col">
-                <input class="form-control" type="text" name="search" id="search-movie_genre" required>
+                <input placeholder="Search by Genre" class="form-control" type="text" name="search" id="search-movie_genre" required>
             </div>
             <div class="col">
                 <input type="submit" class="btn btn-primary">

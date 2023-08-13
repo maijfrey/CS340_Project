@@ -1,4 +1,8 @@
-// Get the add movie form
+// All source code based on the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Last Updated: 8/13/2021
+
+// Get the form
 let addGenreForm = document.getElementById('add-genre-form-ajax');
 
 // Add event listener for submission
@@ -7,18 +11,18 @@ addGenreForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
-    // Get element via element ID
+    // Get elements
     let inputName = document.getElementById("input-genre-name");
 
-    // Get values from input elements
+    // Get element values
     let nameValue =  inputName.value;
 
-    // Put our data we want to send in a javascript object
+    // Data to send (element values)
     let data = {
         name: nameValue,
     }
     
-    // Setup our AJAX request
+    // AJAX POST Request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-genre-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
@@ -26,10 +30,8 @@ addGenreForm.addEventListener("submit", function (e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add new data
             addRowToTable(xhttp.response);
-
             // Clear the inputs 
             inputName.value = '';
         }
@@ -38,17 +40,14 @@ addGenreForm.addEventListener("submit", function (e) {
         }
     }
     // Send the request and wait for the response
-    console.log(JSON.stringify(data));
-
     xhttp.send(JSON.stringify(data));
-
 })
 
 
-// Create new row for the Movies Table
+// Create new row for the table
 addRowToTable = (data) => {
 
-    // Movie Table reference
+    // Table reference
     let currentTable = document.getElementById("genres-table");
 
     let parsedData = JSON.parse(data);

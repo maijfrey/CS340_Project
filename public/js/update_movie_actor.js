@@ -1,18 +1,27 @@
+// All source code based on the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Last Updated: 8/13/2021
+
+// Get form
 let updateMovieActorForm = document.getElementById('update-movie_actor-form-ajax');
 
+// Add event listener
 updateMovieActorForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
+    // Get elements
     let updateMovieID = document.getElementById("update-movie_actor-movieID");
     let updateActorID = document.getElementById("update-movie_actor-actorID");
     let updateInputCharacterName = document.getElementById("update-input-characterName");
     let updateOutputCharacterName = document.getElementById("update-output-characterName");
 
+    // Get element values
     let movieIDValue = updateMovieID.value;
     let actorIDValue = updateActorID.value;
     let inputCharacterNameValue = updateInputCharacterName.value;
     let outputCharacterNameValue = updateOutputCharacterName.value;
 
+    // Data to send (element values)
     let data = { 
         movieID: movieIDValue,
         actorID: actorIDValue,
@@ -20,6 +29,7 @@ updateMovieActorForm.addEventListener("submit", function(e) {
         outputCharacterName: outputCharacterNameValue
     };
 
+    // AJAX PUT Request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-movie_actor-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
@@ -42,8 +52,8 @@ updateMovieActorForm.addEventListener("submit", function(e) {
 
 });
 
+// Update the HTML Table row
 function updateRow(data, movieID, actorID, inputCharacterName, outputCharacterName) {
-    let parsedData = JSON.parse(data);
     let table = document.getElementById("movies_actors-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
@@ -52,10 +62,11 @@ function updateRow(data, movieID, actorID, inputCharacterName, outputCharacterNa
             table.rows[i].getAttribute("character-value") == inputCharacterName) {
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of character name value
+            // Get td of Character Name column
             let td = updateRowIndex.getElementsByTagName("td")[3];
             td.innerHTML = outputCharacterName;
 
+            // Reassign Character Name to our value we updated to
             table.rows[i].setAttribute('character-value', outputCharacterName);
 
             break;

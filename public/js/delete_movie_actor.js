@@ -1,4 +1,8 @@
-// Delete Movie AJAX Request
+// All source code based on the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Last Updated: 8/13/2021
+
+// Delete Movie_Actor AJAX Request
 function deleteMovieActor(movieID,actorID,characterName) {
     // Data to send over
     let data = {
@@ -24,7 +28,7 @@ function deleteMovieActor(movieID,actorID,characterName) {
     xhttp.send(JSON.stringify(data));
 }
 
-
+// HTML Table Row deletion functionality
 function deleteRow(movieID,actorID,characterName){
     let table = document.getElementById("movies_actors-table");
     for (let i = 0, row; row = table.rows[i]; i++) {

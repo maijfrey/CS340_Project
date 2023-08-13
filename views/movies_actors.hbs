@@ -1,3 +1,8 @@
+
+{{! All source code based on the CS340 Starter Code}}
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
+{{! Nav and Search Bar}}
 <header>
     <h2 class="p-3">Movie Information Database</h2>
     <nav class="navbar nav-pills navbar-expand-sm bg-light">
@@ -42,6 +48,9 @@
     </nav>
 </header>
 
+
+{{! Table Construction}}
+
 <body>
     <table id="movies_actors-table" class="table table-hover">
         <thead>
@@ -54,6 +63,9 @@
         </thead>
         <tbody>
             {{#each data}}
+                
+                {{! Assign row values based on intersection FKs and Character Name since a single actor can play multiple characters in a single movie}}
+
                 <tr movie-value={{this.movieID}} actor-value={{this.actorID}} character-value="{{this.characterName}}">
                 <td><button class="btn btn-danger" onclick="deleteMovieActor({{this.movieID}},{{this.actorID}},'{{this.characterName}}')">Delete</button></td>
                 <td>{{this.title}}</td>
@@ -63,7 +75,9 @@
             {{/each}}
         </tbody>
     </table>
-  
+
+  {{! Insert Functionality}}
+
     <div class="row p-4">
         <div class="container-fluid p-3 border col">
             <h3>Add a New Movie and Actor Relationship</h3>
@@ -102,6 +116,7 @@
             </form>
         </div>
 
+  {{! Update Functionality}}
 
         <div class="container-fluid p-3 border col">
             <h3>Update Character Name</h3>
@@ -145,6 +160,7 @@
         </div>
     </div>
 
+      {{! Delete Functionality primarily in .js file}}
     <script src="./js/add_movie_actor.js"></script>
     <script src="./js/delete_movie_actor.js"></script>
     <script src="./js/update_movie_actor.js"></script>

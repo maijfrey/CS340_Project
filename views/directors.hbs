@@ -66,67 +66,72 @@
         </tbody>
     </table>
 
-    {{!-- {{Adding new Director}} --}}
-    <div class="container-fluid p-3">
-        <h3>Add a New Director</h3>
-        <p>Please add a new Director's information below and submit!</p>
-        <form id="add-director-form-ajax" class="form-inline">
-            <div class="row">
-                <div class="form-group col">
-                    <label for="input-director-name">Name: </label>
-                    <input class="form-control" type="text" name="input-director-name" id="input-director-name" required>    
+    <div class="row p-4">
+        {{!-- {{Adding new Director}} --}}
+        <div class="container-fluid p-3 border col">
+            <h3>Add a New Director</h3>
+            <p>Please add a new Director's information below and submit!</p>
+            {{!-- {{Form for new director information}} --}}
+            <form id="add-director-form-ajax" class="form-inline">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="input-director-name">Name: </label>
+                        <input class="form-control" type="text" name="input-director-name" id="input-director-name" required>    
+                    </div>
+                    <div class="form-group col">
+                        <label for="input-director-birthdate">Birthdate: </label>
+                        <input class="form-control" type="date" name="input-director-birthdate" id="input-director-birthdate" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="input-director-gender">Gender: </label>
+                        <select class="form-control" name="input-director-gender" id="input-director-gender" required> 
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Non-Binary">Non-Binary</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="input-director-movieCount">Movie Count: </label>
+                        <input class="form-control" type="number" name="input-director-movieCount" id="input-director-movieCount" required>
+                    </div>
                 </div>
-                <div class="form-group col">
-                    <label for="input-director-birthdate">Birthdate: </label>
-                    <input class="form-control" type="date" name="input-director-birthdate" id="input-director-birthdate" required>
-                </div>
-                <div class="form-group col">
-                    <label for="input-director-gender">Gender: </label>
-                    <select class="form-control" name="input-director-gender" id="input-director-gender" required> 
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
-                        <option value="Non-Binary">Non-Binary</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group col">
-                    <label for="input-director-movieCount">Movie Count: </label>
-                    <input class="form-control" type="number" name="input-director-movieCount" id="input-director-movieCount" required>
-                </div>
-            </div>
-            <div class="pt-2">
-                <input type="submit" class="btn btn-primary">
-                <input type="reset" class="btn btn-secondary">
-            </div>
-        </form>
-    </div>
-
-    {{!-- {{Updating a Director}} --}}
-    <div class="containter-fluid p-3">
-        <h3>Update a Director</h3>
-        <form id="update-director-form-ajax">
-            <div class="row">
-                <div class="col">
-                    <label for="update-director-name">Director Name: </label>
-                    {{!-- {{Director to Update info for}} --}}
-                    <select class="form-control" name="update-director-name" id="update-director-name">
-                        <option value="">Select a Director</option>
-                        {{#each data}}
-                        <option value="{{this.directorID}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="col">
-                    {{!-- {{New Movie Count Input}} --}}
-                    <label for="update-director-movieCount">New Movie Count: </label>
-                    <input class="form-control" type="number" name="update-director-movieCount" id="update-director-movieCount" required>
-                </div>
-                <div class="col align-self-end">
+                <div class="pt-2">
                     <input type="submit" class="btn btn-primary">
                     <input type="reset" class="btn btn-secondary">
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+
+        {{!-- {{Updating a Director}} --}}
+        <div class="containter-fluid p-3 border col">
+            <h3>Update a Director</h3>
+            <p>Please update a Director's movie count and press submit!</p>
+            <form id="update-director-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="update-director-name">Director Name: </label>
+                        {{!-- {{Director to Update info for}} --}}
+                        <select class="form-control" name="update-director-name" id="update-director-name">
+                            <option value="">Select a Director</option>
+                            {{#each data}}
+                            <option value="{{this.directorID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        {{!-- {{New Movie Count Input}} --}}
+                        <label for="update-director-movieCount">New Movie Count: </label>
+                        <input class="form-control" type="number" name="update-director-movieCount" id="update-director-movieCount" required>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script src="./js/add_director.js"></script>

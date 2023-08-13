@@ -63,58 +63,62 @@
         </tbody>
     </table>
 
-    <div class="container-fluid p-3">
-        <h3>Add a New Actor</h3>
-        <p>Please add an Actor's information below and submit!</p>
-        <form id="add-actor-form-ajax" class="form-inline">
-            <div class="row">
-                <div class="col">
-                    <label for="input-actor-name">Actor Name: </label>
-                    <input class="form-control" type="text" name="input-actor-name" id="input-actor-name">
+    <div class="row p-4">
+        <div class="container-fluid p-3 border col">
+            <h3>Add a New Actor</h3>
+            <p>Please add an Actor's information below and submit!</p>
+            <form id="add-actor-form-ajax" class="form-inline">
+                <div class="row">
+                    <div class="col">
+                        <label for="input-actor-name">Actor Name: </label>
+                        <input class="form-control" type="text" name="input-actor-name" id="input-actor-name">
+                    </div>
+                    <div class="col">
+                        <label for="input-actor-birthdate">Birthdate: </label>
+                        <input class="form-control" type="date" name="input-actor-birthdate" id="input-actor-birthdate">
+                    </div>
+                    <div class="col">
+                        <label for="input-actor-gender">Gender: </label>
+                        <input class="form-control" type="text" name="input-actor-gender" id="input-actor-gender">
+                    </div>
+                    <div class="col">
+                        <label for="input-actor-movieCount">Number of Movies: </label>
+                        <input class="form-control" type="number" name="input-actor-movieCount" id="input-actor-movieCount">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="input-actor-birthdate">Birthdate: </label>
-                    <input class="form-control" type="date" name="input-actor-birthdate" id="input-actor-birthdate">
-                </div>
-                <div class="col">
-                    <label for="input-actor-gender">Gender: </label>
-                    <input class="form-control" type="text" name="input-actor-gender" id="input-actor-gender">
-                </div>
-                <div class="col">
-                    <label for="input-actor-movieCount">Number of Movies: </label>
-                    <input class="form-control" type="number" name="input-actor-movieCount" id="input-actor-movieCount">
-                </div>
-            </div>
-            <div class="pt-2">
-                <input type="submit" class="btn btn-primary">
-                <input type="reset" class="btn btn-secondary">
-            </div>
-        </form> 
-    </div>
-
-    <div class="container-fluid p-3">
-        <h3>Update Actor</h3>
-        <form id="update-actor-form-ajax">
-            <div class="row">
-                <div class="col">
-                    <label for="update-actor-name">Actor Name: </label>
-                    <select class="form-control" name="update-actor-name" id="update-actor-name">
-                        <option value="">Select an Actor</option>
-                        {{#each data}}
-                        <option value="{{this.actorID}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="update-actor-movieCount">New Movie Count: </label>
-                    <input class="form-control" type="number" name="update-actor-movieCount" id="update-actor-movieCount" required>
-                </div>
-                <div class="col align-self-end">
+                <div class="pt-2">
                     <input type="submit" class="btn btn-primary">
                     <input type="reset" class="btn btn-secondary">
                 </div>
-            </div>
-        </form>
+            </form> 
+        </div>
+
+        <div class="container-fluid p-3 border col">
+            <h3>Update Actor</h3>
+            <p>Please Update an Actor's Movie Count below</p>
+            <form id="update-actor-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="update-actor-name">Actor Name: </label>
+                        <select class="form-control" name="update-actor-name" id="update-actor-name">
+                            <option value="">Select an Actor</option>
+                            {{#each data}}
+                            <option value="{{this.actorID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="update-actor-movieCount">New Movie Count: </label>
+                        <input class="form-control" type="number" name="update-actor-movieCount" id="update-actor-movieCount" required>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script src="./js/add_actor.js"></script>

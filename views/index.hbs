@@ -68,76 +68,75 @@
   </table>
 
 
-    <div class="container-fluid p-3">
-        <h3>Add a New Movie</h3>
-        <p>Please add a Movie's information below and submit!</p>
-        <form id="add-movie-form-ajax" class="form-inline">
-            <div class="row">
-                <div class="form-group col">
-                    <label for="input-title">Title: </label>
-                    <input class="form-control" type="text" name="input-title" id="input-title" required>
+    <div class="row p-4">
+        <div class="container-fluid p-3 border col">
+            <h3>Add a New Movie</h3>
+            <p>Please add a Movie's information below and submit!</p>
+            <form id="add-movie-form-ajax" class="form-inline">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="input-title">Title: </label>
+                        <input class="form-control" type="text" name="input-title" id="input-title" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="input-productionCost">Production Cost: </label>
+                        <input class="form-control" type="number" name="input-productionCost" id="input-productionCost" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="input-grossRevenue">Gross Revenue: </label>
+                        <input class="form-control" type="number" name="input-grossRevenue" id="input-grossRevenue" required>   
+                    </div>
                 </div>
-                <div class="form-group col">
-                    <label for="input-productionCost">Production Cost: </label>
-                    <input class="form-control" type="number" name="input-productionCost" id="input-productionCost" required>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="input-releaseDate">Release Date: </label>
+                        <input class="form-control" type="date" name="input-releaseDate" id="input-releaseDate" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="input-director">Director: </label>
+                        <select class="form-control" name="input-director" id="input-director">
+                            <option value="">Please Select a Director</option>
+                            {{#each directors}}
+                                <option value="{{this.directorID}}">{{this.name}}</option>
+                            {{/each}}
+                            <option value="">None</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group col">
-                    <label for="input-grossRevenue">Gross Revenue: </label>
-                    <input class="form-control" type="number" name="input-grossRevenue" id="input-grossRevenue" required>   
+                <div class="pt-2">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
                 </div>
-                <div class="form-group col">
-                    <label for="input-releaseDate">Release Date: </label>
-                    <input class="form-control" type="date" name="input-releaseDate" id="input-releaseDate" required>
-                </div>
-                <div class="form-group col">
-                    <label for="input-director">Director: </label>
-                    <select class="form-control" name="input-director" id="input-director">
-                        <option value="">Please Select a Director</option>
-                        {{#each directors}}
-                            <option value="{{this.directorID}}">{{this.name}}</option>
-                        {{/each}}
-                        <option value="">None</option>
-                    </select>
-                </div>
-            </div>
-            <div class="pt-2">
-                <input type="submit" class="btn btn-primary">
-                <input type="reset" class="btn btn-secondary">
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
-
-    <div class="container-fluid p-3">
-        <h3>Update a Movie</h3>
-        <form class="form-inline" id="update-movie-form">
-            <div class="row">
-                <div class="col">
-                    <label for="update-movie-title">Title: </label>
-                    <select class="form-control" name="update-movie-title" id="update-movie-title">
-                        <option value="">Select a Title</option>
+        <div class="container-fluid p-3 border col">
+            <h3>Update a Movie</h3>
+            <p>Please update a Movie's director and press submit!</p>
+            <form class="form-inline" id="update-movie-form">
+                <label for="update-movie-title">Title: </label>
+                <select class="form-control" name="update-movie-title" id="update-movie-title">
+                    <option value="">Select a Title</option>
                         {{#each data}}
                             <option value="{{this.movieID}}">{{this.title}}</option>
                         {{/each}}
                     </select>
-                </div>
-                <div class="col">
-                    <label for="update-movie-director">New Director:</label>
-                    <select class="form-control" name="update-movie-director" id="update-movie-director" required>
-                        <option value="">Select a New Director</option>
+                <label for="update-movie-director">New Director:</label>
+                <select class="form-control" name="update-movie-director" id="update-movie-director" required>
+                    <option value="">Select a New Director</option>
                         {{#each directors}}
                             <option value="{{this.directorID}}">{{this.name}}</option>
                         {{/each}}
-                        <option value="">None</option>
-                    </select>
-                </div>
-                <div class="col align-self-end">
+                    <option value="">None</option>
+                </select>
+                <div class="pt-2">
                     <input type="submit" class="btn btn-primary">
                     <input type="reset" class="btn btn-secondary">
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+
 
     <script src="./js/add_movie.js"></script>
     <script src="./js/delete_movie.js"></script>

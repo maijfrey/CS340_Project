@@ -62,46 +62,49 @@
         </tbody>
     </table>
 
-    <div class="container-fluid p-3">
-        <h3>Add a New Genre</h3>
-        <p>Please add an Genre name below and submit!</p>
-        <form id="add-genre-form-ajax">
-            <div class="row">
-                <div class="col">
-                    <label for="input-genre-name">Genre Name: </label>
-                    <input class="form-control lg-4" type="text" name="input-genre-name" id="input-genre-name">
+    <div class="row p-4">
+        <div class="container-fluid p-3 border col">
+            <h3>Add a New Genre</h3>
+            <p>Please add an Genre name below and submit!</p>
+            <form id="add-genre-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="input-genre-name">Genre Name: </label>
+                        <input class="form-control lg-4" type="text" name="input-genre-name" id="input-genre-name">
+                    </div>
+                    <div class="col align-self-end">
+                        <input  type="submit" class="btn btn-primary ">
+                        <input type="reset" class="btn btn-secondary">
+                    </div>
                 </div>
-                <div class="col align-self-end">
-                    <input  type="submit" class="btn btn-primary ">
-                    <input type="reset" class="btn btn-secondary">
+            </form> 
+        </div>
+        <div class="container-fluid p-3 border col">
+            <h3>Update Genre</h3>
+            <p>Please Update a Genre's name and press submit!</p>
+            <form id="update-genre-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="update-genre-input-name">Genre Name: </label>
+                        <select class="form-control" name="update-genre-input-name" id="update-genre-input-name">
+                            <option value="">Select a Genre</option>
+                            {{#each data}}
+                            <option value="{{this.genreID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="update-genre-output-name">New Name: </label>
+                        <input class="form-control" type="text" name="update-genre-output-name" id="update-genre-output-name" required>
+                    </div>
+                    <div class="col align-self-end">
+                        <input type="submit" class="btn btn-primary">
+                        <a class="btn btn-secondary" href="genres.hbs">Reset</a>
+                    </div>
+                    
                 </div>
-            </div>
-        </form> 
-    </div>
-    <div class="container-fluid p-3">
-        <h3>Update Genre</h3>
-        <form id="update-genre-form-ajax">
-            <div class="row">
-                <div class="col">
-                    <label for="update-genre-input-name">Genre Name: </label>
-                    <select class="form-control" name="update-genre-input-name" id="update-genre-input-name">
-                        <option value="">Select a Genre</option>
-                        {{#each data}}
-                        <option value="{{this.genreID}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="update-genre-output-name">New Name: </label>
-                    <input class="form-control" type="text" name="update-genre-output-name" id="update-genre-output-name" required>
-                </div>
-                <div class="col align-self-end">
-                    <input type="submit" class="btn btn-primary">
-                    <a class="btn btn-secondary" href="genres.hbs">Reset</a>
-                </div>
-                
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     <script src="./js/add_genre.js"></script>

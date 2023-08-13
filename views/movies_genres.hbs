@@ -65,79 +65,80 @@
           {{/each}}
       </tbody>
   </table>
-
-    <div class="container-fluid p-3">
-        <h3>Add a New Movie and Genre Relationship</h3>
-        <p>Please add a new Movie ID, and Genre ID relationship below and submit!</p>
-        <form id="add-movie_genre-form-ajax">
-            <div class="row">
-                <div class="col">
-                    <label for="input-movieTitle">Movie Title: </label>
-                    <select class="form-control" name="input-movieTitle" id="input-movieTitle">
-                        <option value="">Please Select a Movie</option>
-                        {{#each movies}}
-                            <option value="{{this.movieID}}">{{this.title}}</option>
-                        {{/each}}
-                        <option value="">Other</option>
-                    </select>
+    <div class="row p-4">
+        <div class="container-fluid p-3 border col">
+            <h3>Add a New Movie and Genre Relationship</h3>
+            <p>Please add a new Movie ID, and Genre ID relationship below and submit!</p>
+            <form id="add-movie_genre-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="input-movieTitle">Movie Title: </label>
+                        <select class="form-control" name="input-movieTitle" id="input-movieTitle">
+                            <option value="">Please Select a Movie</option>
+                            {{#each movies}}
+                                <option value="{{this.movieID}}">{{this.title}}</option>
+                            {{/each}}
+                            <option value="">Other</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="input-genreName">Genre Name: </label>
+                        <select class="form-control" name="input-genreName" id="input-genreName">
+                            <option value="">Please Select an Genre</option>
+                            {{#each genres}}
+                                <option value="{{this.genreID}}">{{this.name}}</option>
+                            {{/each}}
+                            <option value="">Other</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="input-genreName">Genre Name: </label>
-                    <select class="form-control" name="input-genreName" id="input-genreName">
-                        <option value="">Please Select an Genre</option>
-                        {{#each genres}}
+                <div class="pt-2">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
+                </div>
+            </form>
+        </div>
+
+        <div class="container-fluid p-3 border col">
+            <h3>Update Genre Movie Relationship</h3>
+            <p>Please update a Movie's Genre below and submit!</p>
+            <form id="update-movie_genre-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="update-movie_genre-movieID">MovieID: </label>
+                        <select class="form-control" name="update-movie_genre-movieID" id="update-movie_genre-movieID">
+                            <option value="">Select a MovieID</option>
+                            {{#each movies}}
+                            <option value="{{this.movieID}}">{{this.movieID}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="update-input-movie_genre-genreID"> Current genreID: </label>
+                        <select class="form-control" name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
+                            <option value="">Select a GenreID</option>
+                            {{#each genres}}
+                            <option value="{{this.genreID}}">{{this.genreID}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="update-output-movie_genre-genreID"> New Genre Name: </label>
+                        <select class="form-control" name="update-output-movie_genre-genreID" id="update-output-movie_genre-genreID">
+                            <option value="">Select a Genre Name</option>
+                            {{#each genres}}
                             <option value="{{this.genreID}}">{{this.name}}</option>
-                        {{/each}}
-                        <option value="">Other</option>
-                    </select>
+                            {{/each}}
+                        </select>
+                    </div>
                 </div>
-                <div class="col align-self-end">
+                <div class="pt-2">
                     <input type="submit" class="btn btn-primary">
                     <input type="reset" class="btn btn-secondary">
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
-
-    <div class="container-fluid p-3">
-        <h3>Update Genre Movie Relationship</h3>
-        <form id="update-movie_genre-form-ajax">
-            <div class="row">
-                <div class="col">
-                    <label for="update-movie_genre-movieID">MovieID: </label>
-                    <select class="form-control" name="update-movie_genre-movieID" id="update-movie_genre-movieID">
-                        <option value="">Select a MovieID</option>
-                        {{#each movies}}
-                        <option value="{{this.movieID}}">{{this.movieID}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="update-input-movie_genre-genreID"> Current genreID: </label>
-                    <select class="form-control" name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
-                        <option value="">Select a GenreID</option>
-                        {{#each genres}}
-                        <option value="{{this.genreID}}">{{this.genreID}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="update-output-movie_genre-genreID"> New Genre Name: </label>
-                    <select class="form-control" name="update-output-movie_genre-genreID" id="update-output-movie_genre-genreID">
-                        <option value="">Select a Genre Name</option>
-                        {{#each genres}}
-                        <option value="{{this.genreID}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="col align-self-end">
-                    <input type="submit" class="btn btn-primary">
-                    <input type="reset" class="btn btn-secondary">
-                </div>
-
-            </div>
-        </form>
     </div>
 
 

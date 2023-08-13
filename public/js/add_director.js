@@ -1,3 +1,8 @@
+// Citation for the following the functions on the page: 
+// Date: 08-10-2023
+// Adapted from: This module was adapted from the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+
 let addDirectorForm = document.getElementById('add-director-form-ajax');
 
 addDirectorForm.addEventListener("submit", function(e) {
@@ -15,7 +20,7 @@ addDirectorForm.addEventListener("submit", function(e) {
     let genderValue = inputGender.value;
     let movieCountValue = inputMovieCount.value;
 
-    // Data to send 
+    // Data to send (element values)
     let data = {
         name: nameValue,
         birthdate: birthdateValue,
@@ -23,13 +28,13 @@ addDirectorForm.addEventListener("submit", function(e) {
         movieCount: movieCountValue
     };
 
-    // POST Request
+    // AJAX POST Request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-director-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            // Add new data
+            // Add new row/data
             addRowToTable(xhttp.response);
             // Clear the inputs 
             inputName.value = '';
@@ -41,7 +46,7 @@ addDirectorForm.addEventListener("submit", function(e) {
             console.log("There was an error with the input.")
         }
     }
-
+    // Send request
     xhttp.send(JSON.stringify(data));
 });
 
@@ -86,6 +91,6 @@ addRowToTable = (data) => {
     // Add row to table
     currentTable.appendChild(row);
 
+    // Reload page
     location.reload();
-    
 };

@@ -1,3 +1,8 @@
+// Citation for the following the functions on the page: 
+// Date: 07-29-2023
+// Adapted from: This module was adapted from the CS340 Starter Code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+
 /*
     SETUP
 */
@@ -6,7 +11,7 @@
 // Express
 var express = require('express');   
 var app     = express();            
-PORT        = 7592;                 
+PORT        = 6100;                 
 
 // Database
 var db = require('./database/db-connector.js');
@@ -31,11 +36,14 @@ app.use(express.static('public'));
 app.get('/', function(req, res){   
     let query1;
     if (req.query.search !== undefined) {
-        query1 = `SELECT * FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
+        query1 = `SELECT movieID, title,  CONCAT('$', FORMAT(grossRevenue, 0)) as grossRevenue, 
+        CONCAT('$', FORMAT(productionCost, 0)) as productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate 
+        FROM Movies WHERE title LIKE "${req.query.search}%";`;                    
     } else {
-        query1 = "SELECT * FROM Movies;";
+        query1 = `SELECT movieID, title, CONCAT('$', FORMAT(grossRevenue, 0)) as grossRevenue, 
+        CONCAT('$', FORMAT(productionCost, 0)) as productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate FROM Movies;`;
     }
-    let query2 = "SELECT * FROM Directors;";
+    let query2 = `SELECT * FROM Directors;`;
     db.pool.query(query1, function(error, rows, fields){
         let movie = rows;
         db.pool.query(query2, function(error, rows, fields){
@@ -51,7 +59,6 @@ app.get('/', function(req, res){
             movie = movie.map(movie => {
                 return Object.assign(movie, {directorID: directormap[movie.directorID]})
             })
-    
             res.render('index', {data: movie, directors: directors}); 
         })
     })
@@ -61,9 +68,9 @@ app.get('/', function(req, res){
 app.get('/actors.hbs', function(req, res){
     let query1;
     if (req.query.search !== undefined) {
-        query1 = `SELECT * FROM Actors WHERE name LIKE "${req.query.search}%";`;                    
+        query1 = `SELECT actorID, name, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate, gender, movieCount FROM Actors WHERE name LIKE "${req.query.search}%";`;                    
     } else {
-        query1 = "SELECT * FROM Actors ORDER by name ASC;";
+        query1 = `SELECT actorID, name, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate, gender, movieCount FROM Actors ORDER by name ASC;`;
     }
     db.pool.query(query1, function(error, rows, fields){
         let actor = rows;
@@ -76,7 +83,7 @@ app.get('/genres.hbs', function(req, res){
         if (req.query.search !== undefined) {
             query1 = `SELECT * FROM Genres WHERE name LIKE "${req.query.search}%";`; 
         } else {
-            query1 = "SELECT * FROM Genres ORDER BY name ASC;";
+            query1 = `SELECT * FROM Genres ORDER BY name ASC;`;
         }
         db.pool.query(query1, function(error, rows, fields){
             res.render('genres', {data: rows}); 
@@ -86,9 +93,9 @@ app.get('/genres.hbs', function(req, res){
 app.get('/directors.hbs', function(req, res){
     let query1;
     if (req.query.search !== undefined) {
-        query1 = `SELECT * FROM Directors WHERE name LIKE "${req.query.search}%";`; 
+        query1 = `SELECT directorID, name, gender, movieCount, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate FROM Directors WHERE name LIKE "${req.query.search}%";`; 
     } else {
-        query1 = "SELECT * FROM Directors ORDER BY name ASC;";
+        query1 = `SELECT directorID, name, gender, movieCount, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate FROM Directors ORDER BY name ASC;`;
     }
     db.pool.query(query1, function(error, rows, fields){
         res.render('directors', {data: rows}); 
@@ -100,7 +107,7 @@ app.get('/movies_actors.hbs', function(req, res) {
     if (req.query.search !== undefined) {
         query1 = `SELECT * FROM Movies_Actors WHERE characterName LIKE "${req.query.search}%";`;
     } else {
-        query1 = "SELECT * FROM Movies_Actors ORDER BY movieID ASC;";
+        query1 = `SELECT * FROM Movies_Actors ORDER BY movieID ASC;`;
     }
 
     db.pool.query(query1, function(error, rows, fields) {
@@ -110,10 +117,10 @@ app.get('/movies_actors.hbs', function(req, res) {
         }
     
         let movie_actor = rows;
-    
-        let query2 = "SELECT * FROM Movies;";
-        let query3 = "SELECT * FROM Actors;";
-    
+
+        let query2 = `SELECT * FROM Movies;`;
+        let query3 = `SELECT * FROM Actors;`;
+      
         db.pool.query(query2, function(error, rows, fields) {
             if (error) {
                 console.error(error);
@@ -167,7 +174,7 @@ app.get('/movies_genres.hbs', function(req, res) {
                   INNER JOIN Genres ON Movies_Genres.genreID = Genres.genreID 
                   WHERE Genres.name LIKE '%${req.query.search}%';`;
     } else {
-        query1 = "SELECT * FROM Movies_Genres ORDER BY movieID ASC;";
+        query1 = `SELECT * FROM Movies_Genres ORDER BY movieID ASC;`;
     }
 
     db.pool.query(query1, function(error, rows, fields) {
@@ -233,15 +240,12 @@ app.get('/movies_genres.hbs', function(req, res) {
 app.post('/add-movie-ajax', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
     // Capture NULL values
     let director = parseInt(data.directorID);
-    if (isNaN(director))
-    {
+    
+    if (isNaN(director)) {
         director = 'NULL'
-    }
-
-
+    } 
     // Create the query and run it on the database
     query1 = `INSERT INTO Movies (title, productionCost, grossRevenue, releaseDate, directorID) VALUES ('${data.title}', '${data.productionCost}', '${data.grossRevenue}', '${data.releaseDate}', ${director})`;
     db.pool.query(query1, function(error, rows, fields){
@@ -254,8 +258,8 @@ app.post('/add-movie-ajax', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT title, productionCost, grossRevenue, releaseDate, directorID FROM Movies;`;
+            // If there was no error, perform a SELECT * 
+            query2 = `SELECT * FROM Movies;`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
@@ -268,11 +272,12 @@ app.post('/add-movie-ajax', function(req, res) {
                  else
                  {
                      res.send(rows);
-                 }
+4                 }
              })
          }
      })
 });
+ 
 
 
 app.post('/add-director-ajax', function(req, res) {
@@ -565,46 +570,38 @@ app.delete('/delete-movie_genre-ajax', function(req,res,next){
 */
 
 app.put('/put-movie-ajax', function(req,res,next){
-    let data = req.body; 
-    let movieID = parseInt(data.movie);
-    let category = parseData(data.category);
-    let input = parseDate(data.select);
+    let data = req.body;
+  
+    let directorID = parseInt(data.directorID);
+    let movieID = parseInt(data.movieID);
 
-    let updateMovie =  `UPDATE Movies
-                        WHERE movieID = ${movieID}
-                        SET ${category} = ${input};`;
+    if (isNaN(directorID)) {
+        directorID = 'NULL'
+    } 
 
-    if (category == 'director') {
-        let updateDirector = `SELECT * FROM Directors WHERE name = ${input};`;
-        db.pool.query(updateMovie, function(error, rows, fields){
-            if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error);
-                res.sendStatus(400);
-            } else {
-                db.pool.query(updateDirector, function(error, rows, fields) {
-                    if (error) {
-                        console.log(error);
-                        res.sendStatus(400);
-                    } else {
-                        res.send(rows);
-                    }
-                })
-            }
-        })
-    } else { 
-        db.pool.query(updateMovie, function(error, rows, fields){
-            if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error);
-                res.sendStatus(400);
-            } else {
-                res.send(rows);
-            }
-        })   
-    }
-           
+    let updateMovie = `UPDATE Movies SET directorID = ${directorID} WHERE movieID = ${movieID};`;
+    let getDirector = `SELECT * FROM Directors WHERE directorID = ${directorID};`;
+  
+    // Run the 1st query
+    db.pool.query(updateMovie, function(error, rows, fields){
+        if (error) {
+            // Bad Request
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+                // Run the second query
+            db.pool.query(getDirector,function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
 });
+
 
 app.put('/put-director-ajax', function(req,res,next){
     let data = req.body;

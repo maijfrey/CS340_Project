@@ -1,107 +1,147 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Movie Database Website</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Movie Database Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<header class="container">
-    <h2>Movie Information Database</h2>
-    <nav class="tabs">
-        <a class="tab" href="/">Movies</a> 
-        <a class="tab" href="actors.hbs">Actors</a> 
-        <a class="tab" href="directors.hbs">Directors</a> 
-        <a class="tab" href="genres.hbs">Genres</a> 
-        <a class="tab" href="movies_actors.hbs">Movie Actors</a>
-        <a class="tab" href="movies_genres.hbs">Movie Genres</a>
+<header>
+    <h2 class="p-3">Movie Information Database</h2>
+    <nav class="navbar nav-pills navbar-expand-sm bg-light">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 p-2">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Movies</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="actors.hbs">Actors</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="directors.hbs">Directors</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="genres.hbs">Genres</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="movies_actors.hbs">Movie Actors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="movies_genres.hbs">Movie Genres</a>
+            </li>
+        </ul>
+        <form class="ms-auto row" id="search-movie_genre-html" method='GET' action='/movies_genres.hbs'>
+            <div class="col align-self-center">
+                <label for="search-movie_genre">Search by Genre: </label>
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" name="search" id="search-movie_genre" required>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary">
+                <a class="btn btn-secondary" href="movies_genres.hbs">Reset</a>
+            </div>
+        </form>
     </nav>
 </header>
 
 <body>
-  <table id="movies_genres-table">
+  <table id="movies_genres-table" class="table table-hover">
       <thead>
           <tr>
-              <th id="delete-button">DELETE</th>
-              <th>Movie ID</th>
-              <th>Genre ID</th>
+              <th id="delete-button">Delete</th>
+              <th>Movie Name</th>
+              <th>Genre Name</th>
           </tr>
       </thead>
       <tbody>
 
           {{#each data}}
               <tr movie-value ={{this.movieID}}  genre-value ={{this.genreID}}>
-              <td><button onclick="deleteMovieGenre({{this.movieID}},{{this.genreID}})">Delete</button></td>
+              <td><button class="btn btn-danger" onclick="deleteMovieGenre({{this.movieID}},{{this.genreID}})">Delete</button></td>
               <td>{{this.title}}</td>
               <td>{{this.genreName}}</td>
           </tr>
           {{/each}}
       </tbody>
   </table>
-  
- <h2>Add a New Movie and Genre Relationship</h2>
-<p>Please add a new Movie, and Genre relationship below and submit!</p>
-<form id="add-movie_genre-form-ajax">
-    
-    <label for="input-movieTitle">Movie Title: </label>
-    <select name="input-movieTitle" id="input-movieTitle">
-        <option value="">Please Select a Movie</option>
-        {{#each movies}}
-            <option value="{{this.movieID}}">{{this.title}}</option>
-        {{/each}}
-        <option value="">Other</option>
-    </select>
 
-    <label for="input-genreName">Genre Name: </label>
-    <select name="input-genreName" id="input-genreName">
-        <option value="">Please Select an Genre</option>
-        {{#each genres}}
-            <option value="{{this.genreID}}">{{this.name}}</option>
-        {{/each}}
-        <option value="">Other</option>
-    </select>
+    <div class="row p-4">
+        <div class="container-fluid p-3 border col">
+            <h3>Add a New Movie and Genre Relationship</h3>
+            <p>Please add a new Movie, and Genre relationship below and submit!</p>
+            <form id="add-movie_genre-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="input-movieTitle">Movie Title: </label>
+                        <select class="form-control" name="input-movieTitle" id="input-movieTitle">
+                            <option value="">Please Select a Movie</option>
+                            {{#each movies}}
+                                <option value="{{this.movieID}}">{{this.title}}</option>
+                            {{/each}}
+                            <option value="">Other</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="input-genreName">Genre Name: </label>
+                        <select class="form-control" name="input-genreName" id="input-genreName">
+                            <option value="">Please Select an Genre</option>
+                            {{#each genres}}
+                                <option value="{{this.genreID}}">{{this.name}}</option>
+                            {{/each}}
+                            <option value="">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
+                </div>
+            </form>
+        </div>
+        <div class="container-fluid p-3 border col">
+            <h3>Update Genre Movie Relationship</h3>
+            <p>Please update a Movie's Genre below and submit!</p>
+            <form id="update-movie_genre-form-ajax">
+                <div class="row">
+                    <div class="col">
+                        <label for="update-movie_genre-movieID">Movie: </label>
+                        <select class="form-control" name="update-movie_genre-movieID" id="update-movie_genre-movieID">
+                            <option value="">Select a Movie</option>
+                            {{#each movies}}
+                            <option value="{{this.movieID}}">{{this.title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="update-input-movie_genre-genreID"> Current Genre: </label>
+                        <select class="form-control" name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
+                            <option value="">Select a Genre</option>
+                            {{#each genres}}
+                            <option value="{{this.genreID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="update-output-movie_genre-genreID"> New Genre Name: </label>
+                        <select class="form-control" name="update-output-movie_genre-genreID" id="update-output-movie_genre-genreID">
+                            <option value="">Select a Genre Name</option>
+                            {{#each genres}}
+                            <option value="{{this.genreID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <input type="submit" class="btn btn-primary">
+                    <input type="reset" class="btn btn-secondary">
+                </div>
+            </form>
+        </div>
 
-    <input type="submit">
-</form>
-
-<h2>Genre Search</h2>
-<form id="search-movie_genre-html" method='GET' action='/movies_genres.hbs'>
-    <label for="search-movie_genre-id">Search by Genre: </label>
-    <input type="text" name="search" id="search-movie_genre-id">
-    <input type="submit">
-</form>
-
-<h2>Update Genre Movie Relationship</h2>
-<form id="update-movie_genre-form-ajax">
-    <label for="update-movie_genre-movieID">Movie: </label>
-    <select name="update-movie_genre-movieID" id="update-movie_genre-movieID">
-        <option value="">Select a Movie</option>
-        {{#each movies}}
-        <option value="{{this.movieID}}">{{this.title}}</option>
-        {{/each}}
-    </select>
-    <label for="update-input-movie_genre-genreID"> Current genreID: </label>
-    <select name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
-        <option value="">Select a Genre</option>
-        {{#each genres}}
-        <option value="{{this.genreID}}">{{this.name}}</option>
-        {{/each}}
-    </select>
-
-    <label for="update-output-movie_genre-genreID"> New Genre Name: </label>
-    <select name="update-output-movie_genre-genreID" id="update-output-movie_genre-genreID">
-        <option value="">Select a Genre Name</option>
-        {{#each genres}}
-        <option value="{{this.genreID}}">{{this.name}}</option>
-        {{/each}}
-    </select>
-
-    <input type="submit">
-</form>
-
-<script src="./js/add_movie_genre.js"></script>
-<script src="./js/delete_movie_genre.js"></script>
-<script src="./js/update_movie_genre.js"></script>
-
-
+    <script src="./js/add_movie_genre.js"></script>
+    <script src="./js/delete_movie_genre.js"></script>
+    <script src="./js/update_movie_genre.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

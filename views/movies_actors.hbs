@@ -50,13 +50,12 @@
         <thead>
             <tr>
                 <th id="delete-button">Delete</th>
-                <th>Movie ID</th>
-                <th>Actor ID</th>
+                <th>Movie Name</th>
+                <th>Actor Name</th>
                 <th>Character Name</th>
             </tr>
         </thead>
         <tbody>
-
             {{#each data}}
                 <tr movie-value ={{this.movieID}}  actor-value ={{this.actorID}} character-value ={{this.characterName}}>
                 <td><button class="btn btn-danger" onclick="deleteMovieActor({{this.movieID}},{{this.actorID}},'{{this.characterName}}')">Delete</button></td>

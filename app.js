@@ -108,50 +108,50 @@ app.get('/movies_actors.hbs', function(req, res) {
             console.error(error);
             return;
         }
-
+    
         let movie_actor = rows;
-
+    
         let query2 = "SELECT * FROM Movies;";
         let query3 = "SELECT * FROM Actors;";
-
+    
         db.pool.query(query2, function(error, rows, fields) {
             if (error) {
                 console.error(error);
                 return;
             }
-
+    
             let movies = rows;
-
+    
             let moviemap = {};
             movies.forEach(movie => {
                 let id = parseInt(movie.movieID, 10);
                 moviemap[id] = movie["title"];
             });
-
+    
             db.pool.query(query3, function(error, rows, fields) {
                 if (error) {
                     console.error(error);
                     return;
                 }
-
+    
                 let actors = rows;
-
+    
                 let actormap = {};
                 actors.forEach(actor => {
                     let id = parseInt(actor.actorID, 10);
                     actormap[id] = actor["name"];
                 });
-
-                movie_actor = movie_actor.map(movie_actor => {
-                    return Object.assign(
-                        movie_actor,
-                        { title: moviemap[movie_actor.movieID] },
-                        { name: actormap[movie_actor.actorID] }
-                    );
+    
+                let appendedData = movie_actor.map(item => {
+                    return {
+                        ...item,
+                        title: moviemap[item.movieID],
+                        name: actormap[item.actorID]
+                    };
                 });
-
+    
                 res.render('movies_actors', {
-                    data: movie_actor,
+                    data: appendedData,
                     movies: movies,
                     actors: actors
                 });
@@ -163,7 +163,9 @@ app.get('/movies_actors.hbs', function(req, res) {
 app.get('/movies_genres.hbs', function(req, res) {
     let query1;
     if (req.query.search !== undefined && req.query.search !== "") {
-        query1 = `SELECT * FROM Movies_Genres WHERE genreID = ${req.query.search};`;
+        query1 = `SELECT * FROM Movies_Genres 
+                  INNER JOIN Genres ON Movies_Genres.genreID = Genres.genreID 
+                  WHERE Genres.name LIKE '%${req.query.search}%';`;
     } else {
         query1 = "SELECT * FROM Movies_Genres ORDER BY movieID ASC;";
     }
@@ -207,16 +209,16 @@ app.get('/movies_genres.hbs', function(req, res) {
                     genremap[id] = genre["name"];
                 });
 
-                movie_genre = movie_genre.map(movie_genre => {
-                    return Object.assign(
-                        movie_genre,
-                        { title: moviemap[movie_genre.movieID] },
-                        { name: genremap[movie_genre.genreID] }
-                    );
+                appendedData = movie_genre.map(item => {
+                    return {
+                        ...item,
+                        genreName: genremap[item.genreID],
+                        title: moviemap[item.movieID]
+                    };
                 });
 
                 res.render('movies_genres', {
-                    data: movie_genre,
+                    data: appendedData,
                     movies: movies,
                     genres: genres
                 });

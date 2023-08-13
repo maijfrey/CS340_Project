@@ -31,15 +31,15 @@
           {{#each data}}
               <tr movie-value ={{this.movieID}}  genre-value ={{this.genreID}}>
               <td><button onclick="deleteMovieGenre({{this.movieID}},{{this.genreID}})">Delete</button></td>
-              <td>{{this.movieID}}</td>
-              <td>{{this.genreID}}</td>
+              <td>{{this.title}}</td>
+              <td>{{this.genreName}}</td>
           </tr>
           {{/each}}
       </tbody>
   </table>
   
  <h2>Add a New Movie and Genre Relationship</h2>
-<p>Please add a new Movie ID, and Genre ID relationship below and submit!</p>
+<p>Please add a new Movie, and Genre relationship below and submit!</p>
 <form id="add-movie_genre-form-ajax">
     
     <label for="input-movieTitle">Movie Title: </label>
@@ -65,25 +65,25 @@
 
 <h2>Genre Search</h2>
 <form id="search-movie_genre-html" method='GET' action='/movies_genres.hbs'>
-    <label for="search-movie_genre-id">Search by Genre ID: </label>
-    <input type="number" name="search" id="search-movie_genre-id">
+    <label for="search-movie_genre-id">Search by Genre: </label>
+    <input type="text" name="search" id="search-movie_genre-id">
     <input type="submit">
 </form>
 
 <h2>Update Genre Movie Relationship</h2>
 <form id="update-movie_genre-form-ajax">
-    <label for="update-movie_genre-movieID">MovieID: </label>
+    <label for="update-movie_genre-movieID">Movie: </label>
     <select name="update-movie_genre-movieID" id="update-movie_genre-movieID">
-        <option value="">Select a MovieID</option>
+        <option value="">Select a Movie</option>
         {{#each movies}}
-        <option value="{{this.movieID}}">{{this.movieID}}</option>
+        <option value="{{this.movieID}}">{{this.title}}</option>
         {{/each}}
     </select>
     <label for="update-input-movie_genre-genreID"> Current genreID: </label>
     <select name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
-        <option value="">Select a GenreID</option>
+        <option value="">Select a Genre</option>
         {{#each genres}}
-        <option value="{{this.genreID}}">{{this.genreID}}</option>
+        <option value="{{this.genreID}}">{{this.name}}</option>
         {{/each}}
     </select>
 

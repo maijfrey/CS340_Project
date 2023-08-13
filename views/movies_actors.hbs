@@ -18,9 +18,10 @@
 </header>
 
 <body>
-  <table id="movies-actors-table">
+  <table id="movies_actors-table">
       <thead>
           <tr>
+              <th id="delete-button">DELETE</th>
               <th>Movie ID</th>
               <th>Actor ID</th>
               <th>Character Name</th>
@@ -29,7 +30,8 @@
       <tbody>
 
           {{#each data}}
-          <tr>
+              <tr movie-value ={{this.movieID}}  actor-value ={{this.actorID}} character-value ={{this.characterName}}>
+              <td><button onclick="deleteMovieActor({{this.movieID}},{{this.actorID}},'{{this.characterName}}')">Delete</button></td>
               <td>{{this.movieID}}</td>
               <td>{{this.actorID}}</td>
               <td>{{this.characterName}}</td>
@@ -38,5 +40,70 @@
       </tbody>
   </table>
   
+ <h2>Add a New Movie and Actor Relationship</h2>
+<p>Please add a new Movie ID, Actor ID, and character name relationship below and submit!</p>
+<form id="add-movie_actor-form-ajax">
+    
+    <label for="input-movieTitle">Movie Title: </label>
+    <select name="input-movieTitle" id="input-movieTitle">
+        <option value="">Please Select a Movie</option>
+        {{#each movies}}
+            <option value="{{this.movieID}}">{{this.title}}</option>
+        {{/each}}
+        <option value="">Other</option>
+    </select>
+
+    <label for="input-actorName">Actor Name: </label>
+    <select name="input-actorName" id="input-actorName">
+        <option value="">Please Select an Actor</option>
+        {{#each actors}}
+            <option value="{{this.actorID}}">{{this.name}}</option>
+        {{/each}}
+        <option value="">Other</option>
+    </select>
+
+    <label for="input-characterName">Character name: </label>
+    <input type="text" name="input-characterName" id="input-characterName">
+
+    <input type="submit">
+</form>
+
+<h2>Character Search</h2>
+<form id="search-character-html" method='GET' action='/movies_actors.hbs'>
+    <label for="search-character-name">Search by Character Name: </label>
+    <input type="text" name="search" id="search-character-name">
+    <input type="submit">
+    <a href='/movies_actors.hbs'><button>Reset</button></a>
+</form>
+
+<h2>Update Character Name</h2>
+<form id="update-movie_actor-form-ajax">
+    <label for="update-movie_actor-movieID">MovieID: </label>
+    <select name="update-movie_actor-movieID" id="update-movie_actor-movieID">
+        <option value="">Select a MovieID</option>
+        {{#each movies}}
+        <option value="{{this.movieID}}">{{this.movieID}}</option>
+        {{/each}}
+    </select>
+    <label for="update-movie_actor-actorID">ActorID: </label>
+    <select name="update-movie_actor-actorID" id="update-movie_actor-actorID">
+        <option value="">Select an ActorID</option>
+        {{#each actors}}
+        <option value="{{this.actorID}}">{{this.actorID}}</option>
+        {{/each}}
+    </select>
+    <label for="update-input-characterName">Old Character Name: </label>
+    <input type="text" name="update-input-characterName" id="update-input-characterName" required>
+
+    <label for="update-output-characterName">New Character Name: </label>
+    <input type="text" name="update-output-characterName" id="update-output-characterName" required>
+    <input type="submit">
+</form>
+
+<script src="./js/add_movie_actor.js"></script>
+<script src="./js/delete_movie_actor.js"></script>
+<script src="./js/update_movie_actor.js"></script>
+
+
 </body>
 </html>

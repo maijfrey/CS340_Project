@@ -1,21 +1,21 @@
-let updateDirectorForm = document.getElementById('update-director-form-ajax');
+let updateGenreForm = document.getElementById('update-genre-form-ajax');
 
-updateDirectorForm.addEventListener("submit", function(e) {
+updateGenreForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    let updateDirector = document.getElementById("update-director-name");
-    let updateMovieCount = document.getElementById("update-director-movieCount");
+    let updateInputName = document.getElementById("update-genre-input-name");
+    let updateName = document.getElementById("update-genre-output-name");
 
-    let directorValue = updateDirector.value;
-    let movieCountValue = updateMovieCount.value;
+    let updateInputNameValue = updateInputName.value;
+    let updateNameValue = updateName.value;
 
     let data = { 
-        directorID: directorValue,
-        movieCount: movieCountValue
+        genreID: updateInputNameValue,
+        name: updateNameValue
     };
 
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-director-ajax", true);
+    xhttp.open("PUT", "/put-genre-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -23,7 +23,7 @@ updateDirectorForm.addEventListener("submit", function(e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, directorValue);
+            updateRow(xhttp.response, updateInputNameValue);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -36,19 +36,19 @@ updateDirectorForm.addEventListener("submit", function(e) {
 
 });
 
-function updateRow(data, directorID){
+function updateRow(data, genreID){
     let parsedData = JSON.parse(data);
-    let table = document.getElementById("directors-table");
+    let table = document.getElementById("genres-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
-       if (table.rows[i].getAttribute("data-value") == directorID) {
+       if (table.rows[i].getAttribute("data-value") == genreID) {
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Get td of homeworld value
-            let td = updateRowIndex.getElementsByTagName("td")[4];
+            let td = updateRowIndex.getElementsByTagName("td")[1];
 
             // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].movieCount; 
+            td.textContent = parsedData[0].name; 
        }
     }
 }

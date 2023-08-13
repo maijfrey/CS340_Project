@@ -29,7 +29,7 @@
               <th>Director</th>
           </tr>
       </thead>
-      <tbody id="movies-table-body">
+      <tbody>
 
           {{#each data}}
           <tr data-value={{this.movieID}}>
@@ -49,16 +49,16 @@
 <p>Please add a Movie's information below and submit!</p>
 <form id="add-movie-form-ajax">
     <label for="input-title">Title: </label>
-    <input type="text" name="input-title" id="input-title" required>
+    <input type="text" name="input-title" id="input-title">
     
     <label for="input-productionCost">Production Cost: </label>
-    <input type="number" name="input-productionCost" id="input-productionCost" required>
+    <input type="number" name="input-productionCost" id="input-productionCost">
 
     <label for="input-grossRevenue">Gross Revenue: </label>
-    <input type="number" name="input-grossRevenue" id="input-grossRevenue" required>
+    <input type="number" name="input-grossRevenue" id="input-grossRevenue">
 
     <label for="input-releaseDate">Release Date: </label>
-    <input type="date" name="input-releaseDate" id="input-releaseDate" required>
+    <input type="date" name="input-releaseDate" id="input-releaseDate">
 
     <label for="input-director">Director: </label>
     <select name="input-director" id="input-director">
@@ -70,41 +70,47 @@
     </select>
 
     <input type="submit">
-    <input type="reset">
 </form>
-
 
 <h2>Movie Search</h2>
 <form id="search-movie-html" method='GET' action='/'>
     <label for="input-title">Search by Title: </label>
-    <input type="text" name="search" id="input--html-search" required>
+    <input type="text" name="search" id="input--html-search">
 
     <input type="submit">
     <a href='/'><button>Reset</button></a>
 </form>
 
+
 <h2>Update a Movie</h2>
-<form id="update-movie-form">
-    <label for="update-movie-title">Title: </label>
-    <select onchange="updateMovie()" name="update-movie-title" id="update-movie-title">
-        <option value="">Select a Title</option>
+<form id="update-movie-form-ajax">
+    <label for="input-update-movie">Movie Title: </label>
+    <select name="input-update-movie" id="input-update-movie">
+        <option value="test">Select a Title</option>
         {{#each data}}
-            <option value="{{this.movieID}}">{{this.title}}</option>
+        <option value="{{this.movieID}}">{{this.title}}</option>
         {{/each}}
     </select>
+    <div></div>
 
-    <label for="update-movie-director">New Director:</label>
-    <select name="update-movie-director" id="update-movie-director" required>
-        <option value="">Select a Director</option>
-        {{#each directors}}
-            <option value="{{this.directorID}}">{{this.name}}</option>
-        {{/each}}
+    <label for="input-update-category">Attribute to Update:</label>
+    <select name="input-update-category" id="input-update-category";>
+        <option >Select an Attribute to Update </option>
+        <option id="title-category" value="title">Title</option>
+        <option id="productionCost-category" value="productionCost">Production Cost</option>
+        <option id="grossRevenue-cateogry"value="grossRevenue">Gross Revenue</option>
+        <option id="releaseDate-category" value="releaseDate">Release Date</option>
+        <option id="director-category" value="director">Director</option>
     </select>
-
+    <div>
+        <label for="input-update-text">New Value:</label>
+        <!-- Input type changes based off of selected attribute/category to update-->
+        <input name="input-update-text" id="input-update-text">
+    </div>
     <input type="submit">
-    <input type="reset">
+    <a href='/'><button>Reset</button></a>
 </form>
-
+ 
 
 <script src="./js/add_movie.js"></script>
 <script src="./js/delete_movie.js"></script>

@@ -6,7 +6,7 @@
 </head>
 
 <header class="container">
-    <h2>Movie Information Database</h2>
+    <h2>Actor Information Database</h2>
     <nav class="tabs">
         <a class="tab" href="/">Movies</a> 
         <a class="tab" href="actors.hbs">Actors</a> 
@@ -21,6 +21,7 @@
   <table id="actors-table">
       <thead>
           <tr>
+              <th id="delete-button">DELETE</th>
               <th>Actor Name</th>
               <th>Birthdate</th>
               <th>Gender</th>
@@ -30,7 +31,8 @@
       <tbody>
 
           {{#each data}}
-          <tr>
+          <tr data-value={{this.actorID}}>
+              <td><button onclick="deleteActor({{this.actorID}})">Delete</button></td>
               <td>{{this.name}}</td>
               <td>{{this.birthdate}}</td>
               <td>{{this.gender}}</td>
@@ -39,6 +41,54 @@
           {{/each}}
       </tbody>
   </table>
-  
+
+<h2>Add a New Actor</h2>
+<p>Please add an Actor's information below and submit!</p>
+<form id="add-actor-form-ajax">
+    <label for="input-actor-name">Actor Name: </label>
+    <input type="text" name="input-actor-name" id="input-actor-name">
+    
+    <label for="input-actor-birthdate">Birthdate: </label>
+    <input type="date" name="input-actor-birthdate" id="input-actor-birthdate">
+
+    <label for="input-actor-gender">Gender: </label>
+    <input type="text" name="input-actor-gender" id="input-actor-gender">
+
+    <label for="input-actor-movieCount">Number of Movies: </label>
+    <input type="number" name="input-actor-movieCount" id="input-actor-movieCount">
+
+    <input type="submit">
+    <a href='/actors.hbs'><button>Reset</button></a>
+</form> 
+
+<h2>Actor Search</h2>
+<form id="search-actor-html" method='GET' action='/actors.hbs'>
+    <label for="search-actor-name">Search by Actor Name: </label>
+    <input type="text" name="search" id="search-actor-name">
+
+
+    <input type="submit">
+    <a href='/actors.hbs'><button>Reset</button></a>
+</form>
+
+<h2>Update Actor</h2>
+<form id="update-actor-form-ajax">
+    <label for="update-actor-name">Actor Name: </label>
+    <select name="update-actor-name" id="update-actor-name">
+        <option value="">Select an Actor</option>
+        {{#each data}}
+        <option value="{{this.actorID}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <label for="update-actor-movieCount">New Movie Count: </label>
+    <input type="number" name="update-actor-movieCount" id="update-actor-movieCount" required>
+    <input type="submit">
+    <a href='/actors.hbs'><button>Reset</button></a>
+</form>
+
+<script src="./js/add_actor.js"></script>
+<script src="./js/delete_actor.js"></script>
+<script src="./js/update_actor.js"></script>
+
 </body>
 </html>

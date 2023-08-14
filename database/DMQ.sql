@@ -1,8 +1,207 @@
 -- Title: Movie Information Database Data Manipulations
 -- Assignment: Project Step 3 Draft
 -- Authors: Mai Frey and Ayra Sears
--- Due Date: 2023-07-24
 
+
+/*
+!!!!!!!!!!!! QUERYS WE USED IN OUR PROJECT!!!!!!!!!!!!!!
+*/
+
+-- 				   ******Select Commands******
+
+--                        Movies Selects
+
+-- Select all from Movies with formatting
+SELECT movieID, title, CONCAT('$', FORMAT(grossRevenue, 0)) as grossRevenue, 
+CONCAT('$', FORMAT(productionCost, 0)) as productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate 
+FROM Movies;
+
+-- Select all from Movies without formatting
+SELECT * FROM Movies;
+
+
+--                        Directors Selects
+-- Select all from Directors
+SELECT * FROM Directors;
+
+-- Select Directors where input directorID
+SELECT * FROM Directors WHERE directorID = :directorIDInput;
+
+-- Select all from Directors by Ascending Name
+SELECT directorID, name, gender, movieCount, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate 
+FROM Directors ORDER BY name ASC;
+
+
+--                        Actors Selects
+-- Select all from Actors by Ascending Name
+SELECT actorID, name, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate, gender, movieCount 
+FROM Actors ORDER by name ASC;
+
+-- Select all from Actors without formatting
+SELECT * FROM Actors;
+
+
+--                        Genres Selects
+-- Select all from Genres by Ascending Name
+SELECT * FROM Genres ORDER BY name ASC;
+
+-- Select all from Genres
+SELECT * FROM Genres;
+
+-- Select all from Genres by genreID
+SELECT * FROM Genres WHERE genreID = genreIDInput;
+
+
+--                        Movies_Actors Selects
+-- Select all from Movies_Actors by Ascending Name
+SELECT * FROM Movies_Actors ORDER BY movieID ASC;
+
+--                        Movies_Genres Selects
+-- Select all from Movies_Genres by Ascending Name
+SELECT * FROM Movies_Genres ORDER BY movieID ASC;
+
+
+
+
+-- 			       ******SEARCH COMMANDS******
+
+--                        Movies Search
+-- Select Movie by Title 
+SELECT movieID, title,  CONCAT('$', FORMAT(grossRevenue, 0)) as grossRevenue, 
+CONCAT('$', FORMAT(productionCost, 0)) as productionCost, directorID, DATE_FORMAT(releaseDate, '%M %e %Y') as releaseDate 
+FROM Movies WHERE title LIKE :inputTitle;  
+
+
+--                        Actors Search
+-- Select Actor by name
+SELECT actorID, name, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate, gender, movieCount 
+FROM Actors WHERE name LIKE :inputName;
+
+--                        Genres Search
+-- Select Genre by name
+SELECT * FROM Genres WHERE name LIKE :inputName;
+
+
+--                        Directors Search
+-- Select Director by name
+SELECT directorID, name, gender, movieCount, DATE_FORMAT(birthdate, '%M %e %Y') as birthdate 
+FROM Directors WHERE name LIKE :inputName;
+
+
+--                        Movies_Actors Search
+-- Select Movies_Actors by name
+SELECT * FROM Movies_Actors 
+WHERE characterName LIKE :inputName;
+
+
+--                        Movies_Genres Search
+-- Select Movies_Genre by Genre name
+SELECT * FROM Movies_Genres 
+INNER JOIN Genres ON Movies_Genres.genreID = Genres.genreID 
+WHERE Genres.name LIKE :inputGenre;
+
+
+-- 					******INSERT COMMANDS******
+
+--                        Movies Inserts
+INSERT INTO Movies (title, productionCost, grossRevenue, releaseDate, directorID) 
+VALUES (:titleInput, :productionCostInput, :grossRevenueInput, :releaseDateInput, :directorIDInput);
+
+
+--                          Actors INSERTS
+INSERT INTO Actors (`name`, birthdate, gender, movieCount) 
+VALUES (:nameInput, :birthdateInput, :genderInput, :movieCountInput);
+
+
+--                          Directors INSERTS
+INSERT INTO Directors (`name`, birthdate, gender, movieCount) 
+VALUES (:nameInput, :birthdateInput, :genderInput, :movieCountInput);
+
+
+--                          Genres INSERTS
+INSERT INTO Genres (`name`)
+VALUES (:nameInput);
+
+
+--                          Movies_Actors INSERTS
+INSERT INTO Movies_Actors (movieID, actorID, characterName) 
+VALUES (:movieIDInput, :actorIDInput, :characterNameInput);
+
+
+--                          Movies_Genres INSERTS
+
+INSERT INTO Movies_Genres (movieID, genreID) 
+VALUES (:movieIDInput, :genreIDInput);
+
+
+-- 					******DELETE COMMANDS******
+
+
+--                        Movies Deletes
+DELETE FROM Movies WHERE movieID = :movieIDInput;
+
+--                        Directors Deletes
+DELETE FROM Directors WHERE directorID = :directorIDInput;
+
+--                        Genres Deletes
+DELETE FROM Genres WHERE genreID = :genreIDInput;
+
+--                        Actors Deletes
+DELETE FROM Actors WHERE actorID = :actorIDInput
+
+--                        Movies_Actors Deletes
+DELETE FROM Movies_Actors 
+WHERE actorID = :actorIDInput AND movieID = :movieIDInput AND characterName = :characterNameInput
+
+--                        Movies_Genres Deletes
+DELETE FROM Movies_Genres WHERE genreID = :genreIDInput AND movieID = :movieIDInput;
+
+
+-- 					******UPDATE COMMANDS******
+
+
+--                        Movies Updates
+-- Update directorID in Movies
+UPDATE Movies 
+SET directorID = :directorIDInput
+WHERE movieID = :movieIDInput;
+
+--                        Directors Updates
+-- Update Movie Count in Directors
+UPDATE Directors 
+SET movieCount = :movieCountInput 
+WHERE directorID = :directorIDInput;
+
+--                        Genres Updates
+-- Update name in Genres
+UPDATE Genres 
+SET name = :nameInput
+WHERE genreID = :genreIDInput;
+
+--                        Actors Updates
+-- Update movie count in Actors
+UPDATE Actors 
+SET movieCount = :movieCountInput
+WHERE actorID = :actorIDInput;
+
+--                        Movies_Actors Updates
+-- Update character name in Movies_Actors
+UPDATE Movies_Actors 
+SET characterName = :characterNameInput
+WHERE actorID = :actorIDInput  AND movieID = :movieIDInput  AND characterName = :characterNameInput;
+
+--                        Movies_Genres Updates
+-- Update Genre ID in Movies_Genres
+UPDATE Movies_Genres 
+SET genreID = :genreIDInput 
+WHERE genreID = :genreIDInput  AND movieID = :movieIDInput;
+
+
+
+
+/*
+!!!!!!!!!!!! BELOW ARE QUERYS WE CREATED PREVIOUSLY THAT ENDED UP NOT BEING USED !!!!!!!!!!!!!!
+*/
 -- 						  Select Commands
 
 --                        MOVIE Selects
@@ -37,10 +236,6 @@ ORDER BY grossRevenue Asc;
 SELECT title, movieCount, birthdate, gender FROM Actors
 ORDER BY name Desc;
 
---Select by name Asc:
-SELECT name, movieCount, birthdate, gender FROM Actors
-ORDER BY name Asc;
-
 --Select by Movie Count Desc:
 SELECT movieCount, name, birthdate, gender FROM Actors
 ORDER BY movieCount Desc;
@@ -62,10 +257,6 @@ ORDER BY birthdate Asc;
 --Select by name Desc:
 SELECT name, movieCount, birthdate, gender FROM Directors
 ORDER BY name Desc;
-
---Select by name Asc:
-SELECT name, movieCount, birthdate, gender FROM Directors
-ORDER BY name Asc;
 
 --Select by Movie Count Desc:
 SELECT movieCount, name, birthdate, gender FROM Directors
@@ -181,21 +372,6 @@ INSERT INTO Movies (title, productionCost, grossRevenue, releaseDate, directorID
 VALUES (:titleInput, :productionCostInput, :grossRevenueInput, :releaseDateInput, (SELECT directorID FROM Directors WHERE `name` = :directorInput));
 
 
---                          Actor INSERTS
-INSERT INTO Actors (`name`, birthdate, gender, movieCount) 
-VALUES (:nameInput, :birthdateInput, :genderInput, :movieCountInput);
-
-
---                          Director INSERTS
-INSERT INTO Directors (`name`, birthdate, gender, movieCount) 
-VALUES (:nameInput, :birthdateInput, :genderInput, :movieCountInput);
-
-
---                          Genre INSERTS
-INSERT INTO Genres (`name`)
-VALUES (:nameInput);
-
-
 --                          Movies_Actors INSERTS
 INSERT INTO Movies_Actors (movieID, actorID, characterName)
 VALUES ((SELECT movieID FROM Movies WHERE title = :movieInput), (SELECT actorID FROM Actors WHERE `name` = :actorInput), :characterNameInput);
@@ -215,22 +391,18 @@ VALUES ((SELECT movieID FROM Movies WHERE title = :movieInput), (SELECT genreID 
 -- Update Name
 UPDATE Actors
 SET `name` = :replaceInput
-WHERE `name` = :nameInput
+WHERE actorID = :inputID
 
 -- Update Birthdate
 UPDATE Actors
 SET birthdate = :replaceInput
-WHERE `name` = :nameInput
+WHERE actorID = :inputID
 
 -- Update Gender
 UPDATE Actors
 SET gender = :replaceInput
-WHERE `name` = :nameInput
+WHERE actorID = :inputID
 
--- Update MovieCount
-UPDATE Actors
-SET movieCount = :replaceInput
-WHERE `name` = :nameInput
 
 
 --                          Director UPDATES
@@ -238,108 +410,47 @@ WHERE `name` = :nameInput
 -- Update Name
 UPDATE Directors
 SET `name` = :replaceInput
-WHERE `name` = :nameInput
+WHERE directorID = :inputID
 
 -- Update Birthdate
 UPDATE Directors
 SET birthdate = :replaceInput
-WHERE `name` = :nameInput
+WHERE directorID = :inputID
 
 -- Update Gender
 UPDATE Directors
 SET gender = :replaceInput
-WHERE `name` = :nameInput
-
--- Update MovieCount
-UPDATE Directors
-SET movieCount = :replaceInput
-WHERE `name` = :nameInput
+WHERE directorID = :inputID
 
 --                          Movie UPDATES
 
 -- Update Title
 UPDATE Movies
 SET title = :replaceInput
-WHERE `name` = :nameInput
+WHERE movieID = :inputID
 
 -- Update Release Date
 UPDATE Movies
 SET releaseDate = :replaceInput
-WHERE `name` = :nameInput
+WHERE movieID = :inputID
 
 -- Update Gross Revenue
 UPDATE Movies
 SET grossRevenue = :replaceInput
-WHERE `name` = :nameInput
+WHERE movieID = :inputID
 
 -- Update Production Cost
 UPDATE Movies
 SET productionCost = :replaceInput
-WHERE `name` = :nameInput
+WHERE movieID = :inputID
 
--- Update Directorid
-UPDATE Movies
-SET directorID = (
-    SELECT directorID
-    FROM Directors
-    WHERE Directors.name LIKE :inputName
-)
-WHERE `name` = :nameInput
 
 --                          Genres UPDATES
 
 -- Update Name
 UPDATE Genres
 SET `name` = :replaceInput
-WHERE `name` = :nameInput
+WHERE genreID = :inputID
 
-
---                              DELETES
-
-
-
-
---                          Movie DELETES
-DELETE FROM Movies
-WHERE title = :nameInput
-
---                          Actor DELETES
-DELETE FROM Actors
-WHERE `name` = :nameInput
-
---                          Genre DELETES
-DELETE FROM Genres
-WHERE `name` = :nameInput
-
---                          Director DELETES
-DELETE FROM Directors
-WHERE `name` = :nameInput
-
---                          Actor-to-Movie DELETES
-DELETE FROM Movies_Actors
-WHERE movieID = (
-    SELECT movieID
-    FROM Movies
-    WHERE name LIKE :movieName
-)
-AND actorID IN (
-    SELECT actorID
-    FROM Actors
-    WHERE name LIKE :otherName
-);
-
---                          Genre-to-Movie q DELETES
-
-DELETE FROM Movies_Genres
-WHERE movieID = (
-    SELECT movieID
-    FROM Movies
-    WHERE name = :movieName
-)
-AND genreID IN (
-    SELECT genreID
-    FROM Genres
-    WHERE name = :otherName
-);
 
 

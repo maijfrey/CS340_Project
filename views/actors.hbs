@@ -90,7 +90,14 @@
                     </div>
                     <div class="col">
                         <label for="input-actor-gender">Gender: </label>
-                        <input class="form-control" type="text" name="input-actor-gender" id="input-actor-gender">
+                        {{!-- {{Gender selection via dropdown}} --}}
+                        <select class="form-control" name="input-actor-gender" id="input-actor-gender" required>
+                            <option value="">Select a Gender</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Non-Binary">Non-Binary</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     <div class="col">
                         <label for="input-actor-movieCount">Number of Movies: </label>

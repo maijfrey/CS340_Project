@@ -11,7 +11,7 @@
 // Express
 var express = require('express');   
 var app     = express();            
-PORT        = 6200;                 
+PORT        = 6100;                 
 
 // Connect to database
 var db = require('./database/db-connector.js');

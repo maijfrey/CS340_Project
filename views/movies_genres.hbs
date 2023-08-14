@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="input-movieTitle">Movie Title: </label>
-                        <select class="form-control" name="input-movieTitle" id="input-movieTitle">
+                        <select class="form-control" name="input-movieTitle" id="input-movieTitle" required>
                             <option value="">Please Select a Movie</option>
                             {{#each movies}}
                                 <option value="{{this.movieID}}">{{this.title}}</option>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="col">
                         <label for="input-genreName">Genre Name: </label>
-                        <select class="form-control" name="input-genreName" id="input-genreName">
+                        <select class="form-control" name="input-genreName" id="input-genreName" required>
                             <option value="">Please Select an Genre</option>
                             {{#each genres}}
                                 <option value="{{this.genreID}}">{{this.name}}</option>
@@ -113,7 +113,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="update-movie_genre-movieID">Movie: </label>
-                        <select class="form-control" name="update-movie_genre-movieID" id="update-movie_genre-movieID">
+                        <select class="form-control" name="update-movie_genre-movieID" id="update-movie_genre-movieID" required>
                             <option value="">Select a Movie</option>
                             {{#each movies}}
                             <option value="{{this.movieID}}">{{this.title}}</option>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="col">
                         <label for="update-input-movie_genre-genreID"> Current Genre: </label>
-                        <select class="form-control" name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID">
+                        <select class="form-control" name="update-input-movie_genre-genreID" id="update-input-movie_genre-genreID" required>
                             <option value="">Select a Genre</option>
                             {{#each genres}}
                             <option value="{{this.genreID}}">{{this.name}}</option>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="col">
                         <label for="update-output-movie_genre-genreID"> New Genre Name: </label>
-                        <select class="form-control" name="update-output-movie_genre-genreID" id="update-output-movie_genre-genreID">
+                        <select class="form-control" name="update-output-movie_genre-genreID" id="update-output-movie_genre-genreID" required>
                             <option value="">Select a Genre Name</option>
                             {{#each genres}}
                             <option value="{{this.genreID}}">{{this.name}}</option>

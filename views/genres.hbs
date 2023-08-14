@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="input-genre-name">Genre Name: </label>
-                        <input class="form-control lg-4" type="text" name="input-genre-name" id="input-genre-name">
+                        <input class="form-control lg-4" type="text" name="input-genre-name" id="input-genre-name" required>
                     </div>
                     <div class="col align-self-end">
                         <input  type="submit" class="btn btn-primary ">
@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="update-genre-input-name">Genre Name: </label>
-                        <select class="form-control" name="update-genre-input-name" id="update-genre-input-name">
+                        <select class="form-control" name="update-genre-input-name" id="update-genre-input-name" required>
                             <option value="">Select a Genre</option>
                             {{#each data}}
                             <option value="{{this.genreID}}">{{this.name}}</option>

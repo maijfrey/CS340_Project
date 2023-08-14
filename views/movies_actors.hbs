@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="input-movieTitle">Movie Title: </label>
-                        <select class="form-control" name="input-movieTitle" id="input-movieTitle">
+                        <select class="form-control" name="input-movieTitle" id="input-movieTitle" required>
                             <option value="">Please Select a Movie</option>
                             {{#each movies}}
                                 <option value="{{this.movieID}}">{{this.title}}</option>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="col">
                         <label for="input-actorName">Actor Name: </label>
-                        <select class="form-control" name="input-actorName" id="input-actorName">
+                        <select class="form-control" name="input-actorName" id="input-actorName" required>
                             <option value="">Please Select an Actor</option>
                             {{#each actors}}
                                 <option value="{{this.actorID}}">{{this.name}}</option>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col">
                         <label for="input-characterName">Character name: </label>
-                        <input class="form-control"  type="text" name="input-characterName" id="input-characterName">
+                        <input class="form-control"  type="text" name="input-characterName" id="input-characterName" required>
                     </div>
                 </div>
                 <div class="pt-2">
@@ -123,7 +123,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="update-movie_actor-movieID">Movie: </label>
-                        <select class="form-control" name="update-movie_actor-movieID" id="update-movie_actor-movieID">
+                        <select class="form-control" name="update-movie_actor-movieID" id="update-movie_actor-movieID" required>
                             <option value="">Select a Movie</option>
                             {{#each movies}}
                             <option value="{{this.movieID}}">{{this.title}}</option>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="col">
                         <label for="update-movie_actor-actorID">Actor: </label>
-                        <select class="form-control" name="update-movie_actor-actorID" id="update-movie_actor-actorID">
+                        <select class="form-control" name="update-movie_actor-actorID" id="update-movie_actor-actorID" required>
                             <option value="">Select an Actor</option>
                             {{#each actors}}
                             <option value="{{this.actorID}}">{{this.name}}</option>

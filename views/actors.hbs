@@ -82,11 +82,11 @@
                 <div class="row">
                     <div class="col">
                         <label for="input-actor-name">Actor Name: </label>
-                        <input class="form-control" type="text" name="input-actor-name" id="input-actor-name">
+                        <input class="form-control" type="text" name="input-actor-name" id="input-actor-name" required>
                     </div>
                     <div class="col">
                         <label for="input-actor-birthdate">Birthdate: </label>
-                        <input class="form-control" type="date" name="input-actor-birthdate" id="input-actor-birthdate">
+                        <input class="form-control" type="date" name="input-actor-birthdate" id="input-actor-birthdate" required>
                     </div>
                     <div class="col">
                         <label for="input-actor-gender">Gender: </label>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col">
                         <label for="input-actor-movieCount">Number of Movies: </label>
-                        <input class="form-control" type="number" name="input-actor-movieCount" id="input-actor-movieCount">
+                        <input class="form-control" type="number" name="input-actor-movieCount" id="input-actor-movieCount" required>
                     </div>
                 </div>
                 <div class="pt-2">
@@ -120,7 +120,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="update-actor-name">Actor Name: </label>
-                        <select class="form-control" name="update-actor-name" id="update-actor-name">
+                        <select class="form-control" name="update-actor-name" id="update-actor-name" required>
                             <option value="">Select an Actor</option>
                             {{#each data}}
                             <option value="{{this.actorID}}">{{this.name}}</option>
